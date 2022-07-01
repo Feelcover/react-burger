@@ -7,7 +7,7 @@
 }
 
 .menu {
-    max-width: 1440px;
+    max-width: 1240px;
     width: 100%;
     margin: auto;
     display: flex;
@@ -17,6 +17,8 @@
 
 .menu_container{
     display: flex;
+    justify-content: center;
+    align-items: center;
 
 }
 
