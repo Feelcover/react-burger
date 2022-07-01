@@ -1,0 +1,37 @@
+.header {
+    display: flex;
+    width: 100%;
+    max-width: 1920px;
+    background-color: #1C1C21;
+    margin: auto;
+}
+
+.menu {
+    max-width: 1440px;
+    width: 100%;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    padding: 0;
+}
+
+.menu_container{
+    display: flex;
+
+}
+
+.menu_item {
+    display: flex;
+    align-items: center;
+}
+
+.menu_link {
+    display: flex;
+    text-decoration: none;
+    color: inherit;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+}
