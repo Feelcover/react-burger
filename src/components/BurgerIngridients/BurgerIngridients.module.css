@@ -21,7 +21,7 @@
     overflow-x: hidden;
     overflow-y: auto;
     margin: 0;
-    padding: 0;
+    padding-left: 0;
 }
 
 .ingridients::-webkit-scrollbar {
@@ -31,7 +31,6 @@
 
 .ingridients::-webkit-scrollbar-thumb {
     background-color: #8585AD;
-    ;
 }
 
 

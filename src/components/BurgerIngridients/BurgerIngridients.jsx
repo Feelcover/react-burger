@@ -19,7 +19,7 @@ function BurgerIngridients() {
       >
         Соберите бургер
       </h1>
-      <div className={`${burgerIngridientsStyles.category} mb-10`}>
+      <div className={`${burgerIngridientsStyles.category} mb-5`}>
         <a className={burgerIngridientsStyles.link} href="#bun">
           <Tab
             active={current === "bun"}
@@ -49,7 +49,7 @@ function BurgerIngridients() {
         </a>
       </div>
 
-      <ul className={`${burgerIngridientsStyles.ingridients} pt-10`}>
+      <ul className={`${burgerIngridientsStyles.ingridients} pt-5`}>
       {categories.map((element) => (
 					<Ingredients key={element.type} type={element.type} text={element.text} />
 				))}
