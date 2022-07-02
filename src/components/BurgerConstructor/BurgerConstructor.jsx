@@ -9,7 +9,7 @@ import {
 
 function BurgerConstructor() {
   return (
-    <section className={burgerConstructorStyles.section}>
+    <section className={`${burgerConstructorStyles.section} mt-25 ml-10`}>
         
     </section>
   )
