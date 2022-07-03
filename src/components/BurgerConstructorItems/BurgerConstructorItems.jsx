@@ -1,6 +1,7 @@
 import React from "react";
 import burgerConstructorStyles from "./BurgerConstructorItems.module.css";
 import PropTypes from "prop-types";
+import ingredientType from "../../utils/types";
 import {
   ConstructorElement,
   DragIcon,
@@ -19,11 +20,10 @@ const BurgerConstructorItems = (props) => {
   );
 }
 
-BurgerConstructorItems.propTypes = {
-  data: PropTypes.shape({
-    image: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
-  }).isRequired
-};
+
+BurgerConstructorItems.protoType = {
+	items: PropTypes.arrayOf(ingredientType.isRequired)
+}
+
 
 export default BurgerConstructorItems;
