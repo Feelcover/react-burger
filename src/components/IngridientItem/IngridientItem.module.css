@@ -1,0 +1,21 @@
+.item {
+    position: relative;
+    flex-direction: column;
+    width: 100%;
+    max-width: 272px;
+    cursor: pointer;
+}
+
+.image {
+    width: 100%;
+}
+
+.price {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.name {
+    text-align: center;
+}
