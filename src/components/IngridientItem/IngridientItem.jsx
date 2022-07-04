@@ -31,7 +31,7 @@ const IngridientItem = (props) => {
 
 
 IngridientItem.protoType = {
-  ingredient: PropTypes.arrayOf(ingredientType.isRequired),
+  ingredient: ingredientType.isRequired,
 };
 
 export default IngridientItem;

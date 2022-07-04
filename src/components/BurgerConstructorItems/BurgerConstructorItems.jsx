@@ -22,7 +22,7 @@ const BurgerConstructorItems = (props) => {
 
 
 BurgerConstructorItems.protoType = {
-	items: PropTypes.arrayOf(ingredientType.isRequired)
+	items: ingredientType.isRequired
 }
 
 
