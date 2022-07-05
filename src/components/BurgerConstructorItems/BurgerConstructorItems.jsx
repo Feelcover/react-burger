@@ -1,6 +1,5 @@
 import React from "react";
 import burgerConstructorStyles from "./BurgerConstructorItems.module.css";
-import PropTypes from "prop-types";
 import ingredientType from "../../utils/types";
 import {
   ConstructorElement,

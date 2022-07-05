@@ -16,7 +16,7 @@
     display: flex;
 }
 
-.ingridients {
+.ingredients {
     height: calc(100vh - 324px);
     overflow-x: hidden;
     overflow-y: auto;
@@ -24,12 +24,12 @@
     padding-left: 0;
 }
 
-.ingridients::-webkit-scrollbar {
+.ingredients::-webkit-scrollbar {
     background-color: #2F2F37;
     width: 8px;
 }
 
-.ingridients::-webkit-scrollbar-thumb {
+.ingredients::-webkit-scrollbar-thumb {
     background-color: #8585AD;
 }
 

@@ -18,3 +18,7 @@
 .name {
     text-align: left;
 }
+
+.item {
+    margin-right: 5px;
+}
