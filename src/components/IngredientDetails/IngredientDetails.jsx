@@ -1,18 +1,18 @@
 import React from "react";
-import ingredientDetailstStyles from "./ingredient-details.module.css";
+import ingredientDetailstStyles from "./IngredientDetails.module.css";
 import ingredientType from "../../utils/types";
 
 
 const IngredientDetails = (props) => {
   return (
-    <div className={`${ingredientDetailstStyles.container} pr-25 pl-25 pb-15`}>
+    <div className={`${ingredientDetailstStyles.container} pr-25 pb-15 pl-25`}>
       <img
         className={`${ingredientDetailstStyles.pic}`}
         src={props.item.image_large}
         alt={props.item.name}
       />
       <h3
-        className={`${ingredientDetailstStyles.title} text text_type_main-medium pt-4`}
+        className={`${ingredientDetailstStyles.title} text text_type_main-medium pt-3`}
       >
         {props.item.name}
       </h3>

@@ -24,7 +24,7 @@ const Ingredients = ({ data, type, openModal }) => {
         {ingredientCategory.map((element) => (
           <li
             className={`${ingredientsStyles.item}`}
-            key={elem._id}
+            key={element._id}
             onClick={() => openModal(element)}
           >
 
@@ -40,7 +40,6 @@ const Ingredients = ({ data, type, openModal }) => {
 Ingredients.propTypes = {
   data: PropTypes.array.isRequired,
   openModal: PropTypes.func.isRequired,
-  text: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
 };
 

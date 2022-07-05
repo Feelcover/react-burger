@@ -7,6 +7,7 @@ import {
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import ingredientType from "../../utils/types";
+import PropTypes from 'prop-types';
 
 const BurgerConstructor = ({data, openModal}) => {
   return (
@@ -54,7 +55,7 @@ const BurgerConstructor = ({data, openModal}) => {
 }
 
 BurgerConstructor.propTypes = {
-	ingredients: PropTypes.arrayOf(ingredientType.isRequired).isRequired,
+	data: PropTypes.arrayOf(ingredientType.isRequired).isRequired,
 	openModal: PropTypes.func.isRequired
 }
 

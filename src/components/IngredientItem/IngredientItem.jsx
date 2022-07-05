@@ -29,7 +29,7 @@ const IngredientItem = (props) => {
 };
 
 
-IngridientItem.protoType = {
+IngredientItem.protoType = {
   ingredient: ingredientType.isRequired,
 };
 
