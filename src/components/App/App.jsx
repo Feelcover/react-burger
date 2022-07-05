@@ -6,7 +6,7 @@ import Modal from "../Modal/Modal";
 import OrderDetails from "../OrderDetails/OrderDetails";
 import IngredientDetails from "../IngredientDetails/IngredientDetails";
 import AppStyle from "./App.module.css";
-import { Api, processResponse } from "../Api/Api";
+import { Api, processResponse } from "../../utils/Api";
 
 function App() {
   function getData() {
@@ -39,7 +39,7 @@ function App() {
     setIngredientDetailsModal(true);
   };
 
-  const сloseModal = () => {
+  const closeModal = () => {
     setOrderDetailsModal(false);
     setIngredientDetailsModal(false);
   };
@@ -55,7 +55,7 @@ function App() {
         <Modal
           description="Детали заказа"
           open={openOrderDetailsModal}
-          closeModal={сloseModal}
+          closeModal={closeModal}
         >
           <OrderDetails />
         </Modal>
@@ -64,7 +64,7 @@ function App() {
         <Modal
           description="Детали ингредиентов"
           open={openIngredientDetailsModal}
-          closeModal={сloseModal}
+          closeModal={closeModal}
         >
           <IngredientDetails item={ingredientInModal} />
         </Modal>
