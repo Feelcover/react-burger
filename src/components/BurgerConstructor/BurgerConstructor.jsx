@@ -1,14 +1,15 @@
 import React from "react";
 import burgerConstructorStyles from "./BurgerConstructor.module.css";
-import { data } from "../../utils/data";
 import BurgerConstructorItems from "../BurgerConstructorItems/BurgerConstructorItems";
 import {
   ConstructorElement,
   CurrencyIcon,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
+import ingredientType from "../../utils/types";
+import PropTypes from 'prop-types';
 
-function BurgerConstructor() {
+const BurgerConstructor = ({data, openModal}) => {
   return (
     <section className={`${burgerConstructorStyles.section} pt-25 ml-10`}>
       <div className={`${burgerConstructorStyles.container}`}>
@@ -47,10 +48,15 @@ function BurgerConstructor() {
           <p className="text text_type_digits-medium pr-2">15000</p>
           <CurrencyIcon type="primary" />
         </div>
-        <Button type="primary" size="large">Оформить заказ</Button>
+        <Button type="primary" size="large" onClick={openModal}>Оформить заказ</Button>
       </div>
     </section>
   );
+}
+
+BurgerConstructor.propTypes = {
+	data: PropTypes.arrayOf(ingredientType.isRequired).isRequired,
+	openModal: PropTypes.func.isRequired
 }
 
 export default BurgerConstructor;

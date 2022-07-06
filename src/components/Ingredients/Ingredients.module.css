@@ -6,8 +6,9 @@
 
 .list {
     display: flex;
+    justify-content: space-around;
 	flex-wrap: wrap;
-    column-gap: 24px;
+    column-gap: 18px;
     padding: 0;
     margin: 0;
     list-style: none;
@@ -17,4 +18,8 @@
 
 .name {
     text-align: left;
+}
+
+.item {
+margin: 0;
 }
