@@ -7,12 +7,12 @@
 ## Использованные технологии
 * HTML
 * CSS
-* React
+* React (Функциональный подход)
 * JSX 
 * CRA
 * Библиотека готовых компонентов:
  "npm i @ya.praktikum/react-developer-burger-ui-components"
-*Api
+* Api
 
 ___
 
