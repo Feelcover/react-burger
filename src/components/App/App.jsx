@@ -6,25 +6,26 @@ import Modal from "../Modal/Modal";
 import OrderDetails from "../OrderDetails/OrderDetails";
 import IngredientDetails from "../IngredientDetails/IngredientDetails";
 import AppStyle from "./App.module.css";
-import { Api, processResponse } from "../../utils/Api";
+import { getData, error } from "../../utils/Api";
 
 function App() {
-  function getData() {
-    fetch(`${Api.url}`)
-      .then(processResponse)
-      .then((res) => {
-        setData(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }
+  const [loadingState, setLoadingState] = React.useState({
+    data: [],
+    hasError: false,
+    isLoading: true,
+  });
 
   React.useEffect(() => {
-    getData();
+    setLoadingState({ ...loadingState, hasError: false, isLoading: true });
+    getData()
+      .then((res) => {
+        setLoadingState({ ...loadingState, data: res.data, isLoading: false });
+      })
+      .catch((err) => {
+        setLoadingState({ ...loadingState, hasError: true, isLoading: false });
+      });
   }, []);
 
-  const [data, setData] = React.useState([]);
   const [orderDetailsModal, setOrderDetailsModal] = React.useState(false);
   const [ingredientDetailsModal, setIngredientDetailsModal] =
     React.useState(false);
@@ -48,8 +49,20 @@ function App() {
     <div className={AppStyle.page}>
       <AppHeader />
       <main className={AppStyle.content}>
-        <BurgerIngredients data={data} openModal={openIngredientDetailsModal} />
-        <BurgerConstructor data={data} openModal={openOrderDetailsModal} />
+        {loadingState.isLoading && "Идёт загрузка..."}
+        {loadingState.hasError && `Произошла ошибка загрузки ${error}`}
+        {!loadingState.isLoading && !loadingState.hasError && (
+          <>
+            <BurgerIngredients
+              data={loadingState.data}
+              openModal={openIngredientDetailsModal}
+            />
+            <BurgerConstructor
+              data={loadingState.data}
+              openModal={openOrderDetailsModal}
+            />
+          </>
+        )}
       </main>
       {orderDetailsModal && (
         <Modal
