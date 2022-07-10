@@ -3,7 +3,7 @@ import ingredientsStyles from "./Ingredients.module.css";
 import IngredientItem from "../IngredientItem/IngredientItem";
 import PropTypes from "prop-types";
 
-const Ingredients = ({ data, type, openModal }) => {
+const Ingredients = ({ tabRef, data, type, openModal }) => {
 
   const categories = {
     bun: "Булки",
@@ -17,6 +17,7 @@ const Ingredients = ({ data, type, openModal }) => {
     <li className={ingredientsStyles.category} id={data.type}>
       <h2
         className={`${ingredientsStyles.name} text text_type_main-medium pb-6 pt-2`}
+        ref={tabRef}
       >
         {categories[type]}
       </h2>
