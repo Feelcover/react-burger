@@ -49,8 +49,11 @@ function App() {
     <div className={AppStyle.page}>
       <AppHeader />
       <main className={AppStyle.content}>
-        {loadingState.isLoading && "Идёт загрузка..."}
-        {loadingState.hasError && `Произошла ошибка загрузки ${error}`}
+        {loadingState.isLoading &&
+        (
+          <div className={AppStyle.loader}/>
+        )}
+        {loadingState.hasError && `Произошла ошибка загрузки ${error}` }
         {!loadingState.isLoading && !loadingState.hasError && (
           <>
             <BurgerIngredients

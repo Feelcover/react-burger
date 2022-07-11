@@ -5,6 +5,10 @@
     max-width: 272px;
     cursor: pointer;
 }
+.item:hover{
+    opacity: 0.8;
+    transition: 0.5s all ease-in-out;
+}
 
 .image {
     width: 100%;
