@@ -15,3 +15,23 @@
     justify-content: center;
     margin: auto;
 }
+
+.loader{
+    margin: 100px auto;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 4px dashed white;
+    animation: rotate 4s infinite linear;
+}
+
+@keyframes rotate {
+
+    0% {
+      transform: rotate(0deg);
+    }
+  
+    100% {
+      transform: rotate(360deg);
+    }
+  }
