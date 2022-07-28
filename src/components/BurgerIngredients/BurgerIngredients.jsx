@@ -4,8 +4,12 @@ import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import Ingredients from "../Ingredients/Ingredients";
 import PropTypes from "prop-types";
 import ingredientType from "../../utils/types";
+import { ingredientsContext } from "../../services/ingredientsContext";
 
-const BurgerIngredients = ({ data, openModal }) => {
+const BurgerIngredients = ({ openModal }) => {
+
+	const { data } = React.useContext(ingredientsContext);
+
   const [current, setCurrent] = React.useState("bun");
 
   const bunRef = React.useRef();

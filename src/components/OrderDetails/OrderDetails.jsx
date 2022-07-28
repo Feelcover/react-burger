@@ -2,13 +2,13 @@ import React from "react";
 import acceptedImg from "../../images/AcceptedIcon.svg";
 import orderDetailsStyles from "./OrderDetails.module.css";
 
-const OrderDetails = () => {
+const OrderDetails = ({ props }) => {
   return (
     <div className={`${orderDetailsStyles.container} pl-25 pr-25`}>
       <h2
         className={`${orderDetailsStyles.title} text text_type_digits-large pt-15 pb-8`}
       >
-        034536
+        {props.order.number}
       </h2>
       <p
         className={`${orderDetailsStyles.text} text text_type_main-medium pb-15`}

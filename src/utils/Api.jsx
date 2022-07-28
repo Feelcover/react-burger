@@ -1,5 +1,5 @@
 export const Api = {
-  url: "https://norma.nomoreparties.space/api/ingredients",
+  url: "https://norma.nomoreparties.space/api",
   headers: {
     "Content-Type": "application.json",
   },
@@ -12,12 +12,7 @@ export const processResponse = (res) => {
   return Promise.reject(new Error(`Ошибка: Код ${res.status}`));
 };
 
-export function getData() {
-  return fetch(`${Api.url}`)
-    .then(processResponse)
-    .catch((err) => {
-      error = err;
-    });
-}
 
-export let error = null;
+
+
+
