@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import AppHeader from "../AppHeader/AppHeader";
 import BurgerConstructor from "../BurgerConstructor/BurgerConstructor";
 import BurgerIngredients from "../BurgerIngredients/BurgerIngredients";
@@ -10,14 +10,12 @@ import { Api, processResponse } from "../../utils/Api";
 import { ingredientsContext } from "../../services/ingredientsContext";
 
 function App() {
-
   const [data, setData] = useState([]);
   const [orderNumber, setOrderNumber] = useState({
     name: "",
     order: { number: "" },
     success: false,
   });
-
 
   function getData() {
     fetch(`${Api.url}/ingredients`)
@@ -45,7 +43,7 @@ function App() {
   }
 
   React.useEffect(() => {
-    getData()
+    getData();
   }, []);
 
   const [orderDetailsModal, setOrderDetailsModal] = React.useState(false);
@@ -72,14 +70,14 @@ function App() {
       <ingredientsContext.Provider value={{ data, setData }}>
         <AppHeader />
         <main className={AppStyle.content}>
-              <BurgerIngredients
-                data={data}
-                openModal={openIngredientDetailsModal}
-              />
-              <BurgerConstructor
-                openModal={openOrderDetailsModal}
-                getOrder={getOrder}
-              />
+          <BurgerIngredients
+            data={data}
+            openModal={openIngredientDetailsModal}
+          />
+          <BurgerConstructor
+            openModal={openOrderDetailsModal}
+            getOrder={getOrder}
+          />
         </main>
         {orderDetailsModal && (
           <Modal
@@ -87,7 +85,7 @@ function App() {
             open={openOrderDetailsModal}
             closeModal={closeModal}
           >
-            <OrderDetails props={orderNumber}/>
+            <OrderDetails orderNumber={orderNumber} />
           </Modal>
         )}
         {ingredientDetailsModal && (

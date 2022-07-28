@@ -7,8 +7,7 @@ import ingredientType from "../../utils/types";
 import { ingredientsContext } from "../../services/ingredientsContext";
 
 const BurgerIngredients = ({ openModal }) => {
-
-	const { data } = React.useContext(ingredientsContext);
+  const { data } = React.useContext(ingredientsContext);
 
   const [current, setCurrent] = React.useState("bun");
 
@@ -17,9 +16,7 @@ const BurgerIngredients = ({ openModal }) => {
   const mainRef = React.useRef();
   const scrollTabClick = (e, tab) => {
     setCurrent(e);
-    tab.current.scrollIntoView(
-      { behavior: "smooth" }
-      );
+    tab.current.scrollIntoView({ behavior: "smooth" });
   };
 
   return (

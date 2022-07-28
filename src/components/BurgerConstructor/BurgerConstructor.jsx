@@ -52,7 +52,9 @@ const BurgerConstructor = ({ getOrder, openModal }) => {
         <ul className={`${burgerConstructorStyles.list} pr-4`}>
           {data.map((element) => {
             if (element.type === "sauce" || element.type === "main") {
-              return <BurgerConstructorItems key={element._id} items={element} />
+              return (
+                <BurgerConstructorItems key={element._id} items={element} />
+              );
             }
           })}
         </ul>

@@ -11,8 +11,3 @@ export const processResponse = (res) => {
   }
   return Promise.reject(new Error(`Ошибка: Код ${res.status}`));
 };
-
-
-
-
-
