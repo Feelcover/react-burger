@@ -7,10 +7,10 @@ import {
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from "prop-types";
-import { IngredientsContext } from "../../services/IngredientsContext";
+import { ContextIngredients } from "../../services/ContextIngredients";
 
 const BurgerConstructor = ({ getOrder, openModal }) => {
-  const { data } = React.useContext(IngredientsContext);
+  const { data } = React.useContext(ContextIngredients);
 
   const [total, setTotal] = React.useState(0);
 

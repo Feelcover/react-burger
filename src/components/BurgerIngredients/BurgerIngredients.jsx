@@ -3,10 +3,10 @@ import burgerIngredientsStyles from "./BurgerIngredients.module.css";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import Ingredients from "../Ingredients/Ingredients";
 import PropTypes from "prop-types";
-import { IngredientsContext } from "../../services/IngredientsContext";
+import { ContextIngredients } from "../../services/ContextIngredients";
 
 const BurgerIngredients = ({ openModal }) => {
-  const { data } = React.useContext(IngredientsContext);
+  const { data } = React.useContext(ContextIngredients);
 
   const [current, setCurrent] = React.useState("bun");
 

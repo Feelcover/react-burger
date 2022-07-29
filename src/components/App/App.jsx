@@ -7,7 +7,7 @@ import OrderDetails from "../OrderDetails/OrderDetails";
 import IngredientDetails from "../IngredientDetails/IngredientDetails";
 import AppStyle from "./App.module.css";
 import { Api, processResponse } from "../../utils/Api";
-import { IngredientsContext } from "../../services/IngredientsContext";
+import { ContextIngredients } from "../../services/ContextIngredients";
 
 function App() {
   const [data, setData] = useState([]);
@@ -67,7 +67,7 @@ function App() {
 
   return (
     <div className={AppStyle.page}>
-      <IngredientsContext.Provider value={{ data, setData }}>
+      <ContextIngredients.Provider value={{ data, setData }}>
         <AppHeader />
         <main className={AppStyle.content}>
           <BurgerIngredients
@@ -96,7 +96,7 @@ function App() {
             <IngredientDetails item={ingredientInModal} />
           </Modal>
         )}
-      </IngredientsContext.Provider>
+      </ContextIngredients.Provider>
     </div>
   );
 }
