@@ -7,10 +7,10 @@ import {
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from "prop-types";
-import { ingredientsContext } from "../../services/ingredientsContext";
+import { IngredientsContext } from "../../services/IngredientsContext";
 
 const BurgerConstructor = ({ getOrder, openModal }) => {
-  const { data } = React.useContext(ingredientsContext);
+  const { data } = React.useContext(IngredientsContext);
 
   const [total, setTotal] = React.useState(0);
 
@@ -62,7 +62,7 @@ const BurgerConstructor = ({ getOrder, openModal }) => {
         <div className={`${burgerConstructorStyles.lower_locked} pt-3`}>
           {bunItem && (
             <ConstructorElement
-              type="top"
+              type="bottom"
               isLocked={true}
               text={bunItem.name + "(низ)"}
               price={bunItem.price}
@@ -93,7 +93,7 @@ const BurgerConstructor = ({ getOrder, openModal }) => {
 
 BurgerConstructor.propTypes = {
   getOrder: PropTypes.func.isRequired,
-  openModal: PropTypes.func.isRequired,
+  openModal: PropTypes.func.isRequired
 };
 
 export default BurgerConstructor;

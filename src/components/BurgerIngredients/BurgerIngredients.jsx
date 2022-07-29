@@ -3,11 +3,10 @@ import burgerIngredientsStyles from "./BurgerIngredients.module.css";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import Ingredients from "../Ingredients/Ingredients";
 import PropTypes from "prop-types";
-import ingredientType from "../../utils/types";
-import { ingredientsContext } from "../../services/ingredientsContext";
+import { IngredientsContext } from "../../services/IngredientsContext";
 
 const BurgerIngredients = ({ openModal }) => {
-  const { data } = React.useContext(ingredientsContext);
+  const { data } = React.useContext(IngredientsContext);
 
   const [current, setCurrent] = React.useState("bun");
 
@@ -77,7 +76,6 @@ const BurgerIngredients = ({ openModal }) => {
 };
 
 BurgerIngredients.propTypes = {
-  data: PropTypes.arrayOf(ingredientType.isRequired).isRequired,
   openModal: PropTypes.func.isRequired,
 };
 

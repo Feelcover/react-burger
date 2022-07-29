@@ -7,7 +7,7 @@ import OrderDetails from "../OrderDetails/OrderDetails";
 import IngredientDetails from "../IngredientDetails/IngredientDetails";
 import AppStyle from "./App.module.css";
 import { Api, processResponse } from "../../utils/Api";
-import { ingredientsContext } from "../../services/ingredientsContext";
+import { IngredientsContext } from "../../services/IngredientsContext";
 
 function App() {
   const [data, setData] = useState([]);
@@ -67,11 +67,10 @@ function App() {
 
   return (
     <div className={AppStyle.page}>
-      <ingredientsContext.Provider value={{ data, setData }}>
+      <IngredientsContext.Provider value={{ data, setData }}>
         <AppHeader />
         <main className={AppStyle.content}>
           <BurgerIngredients
-            data={data}
             openModal={openIngredientDetailsModal}
           />
           <BurgerConstructor
@@ -97,7 +96,7 @@ function App() {
             <IngredientDetails item={ingredientInModal} />
           </Modal>
         )}
-      </ingredientsContext.Provider>
+      </IngredientsContext.Provider>
     </div>
   );
 }
