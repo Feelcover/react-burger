@@ -3,9 +3,11 @@ import burgerIngredientsStyles from "./BurgerIngredients.module.css";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import Ingredients from "../Ingredients/Ingredients";
 import PropTypes from "prop-types";
-import ingredientType from "../../utils/types";
+import { ContextIngredients } from "../../services/ContextIngredients";
 
-const BurgerIngredients = ({ data, openModal }) => {
+const BurgerIngredients = ({ openModal }) => {
+  const { data } = React.useContext(ContextIngredients);
+
   const [current, setCurrent] = React.useState("bun");
 
   const bunRef = React.useRef();
@@ -13,9 +15,7 @@ const BurgerIngredients = ({ data, openModal }) => {
   const mainRef = React.useRef();
   const scrollTabClick = (e, tab) => {
     setCurrent(e);
-    tab.current.scrollIntoView(
-      { behavior: "smooth" }
-      );
+    tab.current.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
@@ -76,7 +76,6 @@ const BurgerIngredients = ({ data, openModal }) => {
 };
 
 BurgerIngredients.propTypes = {
-  data: PropTypes.arrayOf(ingredientType.isRequired).isRequired,
   openModal: PropTypes.func.isRequired,
 };
 

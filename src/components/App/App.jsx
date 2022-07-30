@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import AppHeader from "../AppHeader/AppHeader";
 import BurgerConstructor from "../BurgerConstructor/BurgerConstructor";
 import BurgerIngredients from "../BurgerIngredients/BurgerIngredients";
@@ -6,24 +6,44 @@ import Modal from "../Modal/Modal";
 import OrderDetails from "../OrderDetails/OrderDetails";
 import IngredientDetails from "../IngredientDetails/IngredientDetails";
 import AppStyle from "./App.module.css";
-import { getData, error } from "../../utils/Api";
+import { Api, processResponse } from "../../utils/Api";
+import { ContextIngredients } from "../../services/ContextIngredients";
 
 function App() {
-  const [loadingState, setLoadingState] = React.useState({
-    data: [],
-    hasError: false,
-    isLoading: true,
+  const [data, setData] = useState([]);
+  const [orderNumber, setOrderNumber] = useState({
+    name: "",
+    order: { number: "" },
+    success: false,
   });
 
-  React.useEffect(() => {
-    setLoadingState({ ...loadingState, hasError: false, isLoading: true });
-    getData()
+  function getData() {
+    fetch(`${Api.url}/ingredients`)
+      .then(processResponse)
       .then((res) => {
-        setLoadingState({ ...loadingState, data: res.data, isLoading: false });
+        setData(res.data);
       })
+
       .catch((err) => {
-        setLoadingState({ ...loadingState, hasError: true, isLoading: false });
+        console.log(err);
       });
+  }
+
+  function getOrder(ingredientsId) {
+    fetch(`${Api.url}/orders`, {
+      method: "POST",
+      body: JSON.stringify({ ingredients: ingredientsId }),
+      headers: { "Content-Type": "application/json" },
+    })
+      .then(processResponse)
+      .then((res) => setOrderNumber(res))
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  React.useEffect(() => {
+    getData();
   }, []);
 
   const [orderDetailsModal, setOrderDetailsModal] = React.useState(false);
@@ -47,44 +67,36 @@ function App() {
 
   return (
     <div className={AppStyle.page}>
-      <AppHeader />
-      <main className={AppStyle.content}>
-        {loadingState.isLoading &&
-        (
-          <div className={AppStyle.loader}/>
+      <ContextIngredients.Provider value={{ data, setData }}>
+        <AppHeader />
+        <main className={AppStyle.content}>
+          <BurgerIngredients
+            openModal={openIngredientDetailsModal}
+          />
+          <BurgerConstructor
+            openModal={openOrderDetailsModal}
+            getOrder={getOrder}
+          />
+        </main>
+        {orderDetailsModal && (
+          <Modal
+            description="Детали заказа"
+            open={openOrderDetailsModal}
+            closeModal={closeModal}
+          >
+            <OrderDetails orderNumber={orderNumber} />
+          </Modal>
         )}
-        {loadingState.hasError && `Произошла ошибка загрузки ${error}` }
-        {!loadingState.isLoading && !loadingState.hasError && (
-          <>
-            <BurgerIngredients
-              data={loadingState.data}
-              openModal={openIngredientDetailsModal}
-            />
-            <BurgerConstructor
-              data={loadingState.data}
-              openModal={openOrderDetailsModal}
-            />
-          </>
+        {ingredientDetailsModal && (
+          <Modal
+            description="Детали ингредиентов"
+            open={openIngredientDetailsModal}
+            closeModal={closeModal}
+          >
+            <IngredientDetails item={ingredientInModal} />
+          </Modal>
         )}
-      </main>
-      {orderDetailsModal && (
-        <Modal
-          description="Детали заказа"
-          open={openOrderDetailsModal}
-          closeModal={closeModal}
-        >
-          <OrderDetails />
-        </Modal>
-      )}
-      {ingredientDetailsModal && (
-        <Modal
-          description="Детали ингредиентов"
-          open={openIngredientDetailsModal}
-          closeModal={closeModal}
-        >
-          <IngredientDetails item={ingredientInModal} />
-        </Modal>
-      )}
+      </ContextIngredients.Provider>
     </div>
   );
 }

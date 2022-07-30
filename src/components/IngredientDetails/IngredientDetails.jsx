@@ -21,13 +21,13 @@ const IngredientDetails = (props) => {
           value={props.item.calories}
           text="Калорийность, ккал"
         />
-        
+
         <IngredientsDetailsItem
           value={props.item.proteins}
           text="Белки, г" />
 
-        <IngredientsDetailsItem 
-          value={props.item.fat} 
+        <IngredientsDetailsItem
+          value={props.item.fat}
           text="Жиры, г" />
 
         <IngredientsDetailsItem

@@ -1,5 +1,6 @@
 import React from "react";
-import ingredientType from "../../utils/types";
+import PropTypes from 'prop-types';
+
 import ingredientsDetailsItemStyles from "./IngredientsDetailsItem.module.css"
 
 const IngredientsDetailsItem = (props) => {
@@ -19,5 +20,9 @@ const IngredientsDetailsItem = (props) => {
   );
 };
 
+IngredientsDetailsItem.propTypes = {
+  text: PropTypes.string.isRequired,
+  value: PropTypes.number.isRequired
+}
 
 export default IngredientsDetailsItem;
