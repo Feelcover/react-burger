@@ -1,37 +1,36 @@
-import React from "react";
 import ingredientDetailsStyles from "./IngredientDetails.module.css";
 import ingredientType from "../../utils/types";
 import IngredientsDetailsItem from "../IngredientsDetailsItem/IngredientsDetailsItem";
 
-const IngredientDetails = (props) => {
+const IngredientDetails = ({ingredient}) => {
   return (
     <div className={`${ingredientDetailsStyles.container} pr-25 pb-15 pl-25`}>
       <img
         className={`${ingredientDetailsStyles.pic}`}
-        src={props.item.image_large}
-        alt={props.item.name}
+        src={ingredient.image_large}
+        alt={ingredient.name}
       />
       <h3
         className={`${ingredientDetailsStyles.title} text text_type_main-medium pt-3`}
       >
-        {props.item.name}
+        {ingredient.name}
       </h3>
       <ul className={`${ingredientDetailsStyles.list} pt-8`}>
         <IngredientsDetailsItem
-          value={props.item.calories}
+          value={ingredient.calories}
           text="Калорийность, ккал"
         />
 
         <IngredientsDetailsItem
-          value={props.item.proteins}
+          value={ingredient.proteins}
           text="Белки, г" />
 
         <IngredientsDetailsItem
-          value={props.item.fat}
+          value={ingredient.fat}
           text="Жиры, г" />
 
         <IngredientsDetailsItem
-          value={props.item.carbohydrates}
+          value={ingredient.carbohydrates}
           text="Углеводы, г"
         />
       </ul>
@@ -40,7 +39,7 @@ const IngredientDetails = (props) => {
 };
 
 IngredientDetails.propTypes = {
-  item: ingredientType.isRequired,
+  ingredient: ingredientType.isRequired,
 };
 
 export default IngredientDetails;
