@@ -1,9 +1,9 @@
 import {
 	ADD_BUN,
-	ADD_ITEM_CONSTRUCTOR,
-	DELETE_ITEM,
-	MOVE_ITEM,
-	RESET_ITEM
+	ADD_INGREDIENT_CONSTRUCTOR,
+	DELETE_INGREDIENT,
+	MOVE_INGREDIENT,
+	RESET_INGREDIENT
 } from "../actions/burger-constructor";
 
 const initialState = {
@@ -13,7 +13,7 @@ const initialState = {
 
 export const constructorReducer = (state = initialState, action) => {
 	switch (action.type) {
-		case DELETE_ITEM: {
+		case DELETE_INGREDIENT: {
 			return {
 				...state,
 				items: [...state.items].filter(
@@ -29,20 +29,20 @@ export const constructorReducer = (state = initialState, action) => {
 				bun: action.data,
 			};
 		}
-		case ADD_ITEM_CONSTRUCTOR: {
+		case ADD_INGREDIENT_CONSTRUCTOR: {
 			return {
 				...state,
 				items: [...state.items, action.data],
 			};
 		}
-		case RESET_ITEM: {
+		case RESET_INGREDIENT: {
 			return {
 				...state,
 				items: [],
 				bun: [],
 			};
 		}
-		case MOVE_ITEM: {
+		case MOVE_INGREDIENT: {
 			const dragConstructor = [...state.items];
 			dragConstructor.splice(
 				action.data.dragIndex,

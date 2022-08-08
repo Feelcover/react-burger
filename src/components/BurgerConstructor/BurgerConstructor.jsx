@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useDrop } from "react-dnd";
 import burgerConstructorStyles from "./BurgerConstructor.module.css";
@@ -11,12 +11,17 @@ import {
 import { getOrderDetails } from "../../services/actions/order-details";
 import {
   ADD_BUN,
-  ADD_ITEM_CONSTRUCTOR,
+  ADD_INGREDIENT_CONSTRUCTOR,
 } from "../../services/actions/burger-constructor";
 
 const BurgerConstructor = () => {
-  const { bun, items } = useSelector((state) => state.burgerConstructor);
   const dispatch = useDispatch();
+
+  const { bun, items } = useSelector((state) => state.burgerConstructor);
+  const orderDetailsModal = (productsId) => {
+    dispatch(getOrderDetails(itemsId));
+  };
+
   const [total, setTotal] = useState(0);
 
   const filling = useMemo(
@@ -34,10 +39,6 @@ const BurgerConstructor = () => {
 
   const itemsId = useMemo(() => items.map((item) => item._id), [items]);
 
-  const orderDetailsModal = (productsId) => {
-    dispatch(getOrderDetails(itemsId));
-  };
-
   const [, dropTarget] = useDrop({
     accept: "ingredients",
     drop(item) {
@@ -48,7 +49,7 @@ const BurgerConstructor = () => {
         });
       } else {
         dispatch({
-          type: ADD_ITEM_CONSTRUCTOR,
+          type: ADD_INGREDIENT_CONSTRUCTOR,
           data: { ...item.ingredient, id: Date.now() },
         });
       }
@@ -59,7 +60,9 @@ const BurgerConstructor = () => {
     <section className={`${burgerConstructorStyles.section} pt-25 ml-10`}>
       <div className={`${burgerConstructorStyles.container}`} ref={dropTarget}>
         {bun.length === 0 ? (
-          <p className="text text_type_main-large pr-2">Выберите булочку</p>
+          <p className="text text_type_main-large pr-2 text_color_inactive">
+            Перетащите булочку сюда
+          </p>
         ) : (
           <ConstructorElement
             type="top"
@@ -72,9 +75,9 @@ const BurgerConstructor = () => {
 
         {items.length === 0 ? (
           <p
-            className={`${burgerConstructorStyles.list} ${burgerConstructorStyles.text} pr-2 text text_type_main-large`}
+            className={`${burgerConstructorStyles.list} ${burgerConstructorStyles.text} pr-2 text text_type_main-large text_color_inactive`}
           >
-            &#8592; Выберите начинку
+            Перетащите начинку сюда
           </p>
         ) : (
           <ul className={`${burgerConstructorStyles.list} pr-4`}>
@@ -88,45 +91,54 @@ const BurgerConstructor = () => {
                   />
                 );
               }
+              return null;
             })}
           </ul>
         )}
-        {bun.length === 0
-					? (<p className='text text_type_main-large pr-2'>Выберите булочку </p>)
-          : (<ConstructorElement
-              type="bottom"
-              isLocked={true}
-              text={bun.name + "(низ)"}
-              price={bun.price}
-              thumbnail={bun.image}
-            />)}
-          
+        {bun.length === 0 ? (
+          <p className="text text_type_main-large pr-2 text_color_inactive">
+            Перетащите булочку сюда{" "}
+          </p>
+        ) : (
+          <ConstructorElement
+            type="bottom"
+            isLocked={true}
+            text={bun.name + "(низ)"}
+            price={bun.price}
+            thumbnail={bun.image}
+          />
+        )}
       </div>
       <div className={`${burgerConstructorStyles.total} pt-10 pr-4 pb-10`}>
         <div className={`${burgerConstructorStyles.summ} pr-10`}>
           <p className="text text_type_digits-medium pr-2">{total}</p>
           <CurrencyIcon type="primary" />
         </div>
-        {items.length === 0
-        ? (<Button
-          type="primary"
-          size="large"
-          onClick={() => {orderDetailsModal(itemsId)}}
-          disabled
-        >
-          Оформить заказ
-        </Button>)
-        : (<Button
-          type="primary"
-          size="large"
-          onClick={() => { orderDetailsModal(itemsId) }}
-        >
-          Оформить заказ
-        </Button>)}
+        {items.length === 0 ? (
+          <Button
+            type="primary"
+            size="large"
+            onClick={() => {
+              orderDetailsModal(itemsId);
+            }}
+            disabled
+          >
+            Оформить заказ
+          </Button>
+        ) : (
+          <Button
+            type="primary"
+            size="large"
+            onClick={() => {
+              orderDetailsModal(itemsId);
+            }}
+          >
+            Оформить заказ
+          </Button>
+        )}
       </div>
     </section>
   );
 };
-
 
 export default BurgerConstructor;

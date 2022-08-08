@@ -1,15 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import burgerIngredientsStyles from "./BurgerIngredients.module.css";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import Ingredients from "../Ingredients/Ingredients";
-import PropTypes from "prop-types";
-import { ContextIngredients } from "../../services/ContextIngredients";
 import { useSelector } from 'react-redux';
 
 const BurgerIngredients = () => {
   const ingredients = useSelector(store => store.burgerIngredients.ingredients)
 
-  const [current, setCurrent] = React.useState("bun");
+  const [current, setCurrent] = useState("bun");
 
   const bunRef = React.useRef();
   const sauceRef = React.useRef();

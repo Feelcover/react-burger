@@ -8,7 +8,9 @@ import {
 const ingredientsInitialState = {
 	ingredients: [],
 	ingredientsRequest: false,
-	ingredientsFailed: false
+	ingredientsFailed: false,
+	isLoading: false,
+	hasError: false
 };
 
 export const ingredientsReducer = (state = ingredientsInitialState, action) => {
@@ -17,14 +19,18 @@ export const ingredientsReducer = (state = ingredientsInitialState, action) => {
 			return {
 				...state,
 				ingredientsFailed: false,
-				ingredientsRequest: true
+				ingredientsRequest: true,
+				hasError: false,
+        		isLoading: true
 			};
 		}
 		case BURGER_INGREDIENTS_FAILED: {
 			return {
 				...state,
 				ingredientsFailed: true,
-				ingredientsRequest: false
+				ingredientsRequest: false,
+				isLoading: false,
+        hasError: true,
 			};
 		}
 		case BURGER_INGREDIENTS_SUCCESS: {
@@ -32,7 +38,8 @@ export const ingredientsReducer = (state = ingredientsInitialState, action) => {
 				...state,
 				ingredients: action.ingredients,
 				ingredientsRequest: false,
-				ingredientsFailed: false
+				ingredientsFailed: false,
+				isLoading: false,
 			};
 		}
 		default: {

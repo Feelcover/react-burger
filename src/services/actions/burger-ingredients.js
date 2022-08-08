@@ -1,5 +1,5 @@
 
-import { getIngredientData } from "../../utils/Api"; 
+import { getIngredientsData } from "../../utils/Api"; 
 
 export const BURGER_INGREDIENTS_REQUEST = 'BURGER_INGREDIENTS_REQUEST';
 export const BURGER_INGREDIENTS_SUCCESS = 'BURGER_INGREDIENTS_SUCCESS';
@@ -10,7 +10,7 @@ export function getBurgerIngredients() {
 		dispatch({
 			type: BURGER_INGREDIENTS_REQUEST
 		});
-		getIngredientData()
+		getIngredientsData()
 			.then((res) => {
 				dispatch({
 					type: BURGER_INGREDIENTS_SUCCESS,
