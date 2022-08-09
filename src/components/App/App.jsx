@@ -9,10 +9,10 @@ import AppStyle from "./App.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { DndProvider } from "react-dnd";
-import { closeOrderModal } from "../../services/actions/order-details";
-import { getBurgerIngredients } from "../../services/actions/burger-ingredients";
-import { closeIngredientModal } from "../../services/actions/ingredient-details";
-import { RESET_INGREDIENT } from "../../services/actions/burger-constructor";
+import { closeOrderModal } from "../../services/actions/order";
+import { getBurgerIngredients } from "../../services/actions/ingredients";
+import { closeIngredientModal } from "../../services/actions/details";
+import { RESET_INGREDIENT } from "../../services/actions/constructor";
 
 function App() {
   const openDetailsModal = useSelector(
@@ -21,54 +21,50 @@ function App() {
 
   const isLoading = useSelector((store) => store.burgerIngredients.isLoading);
   const hasError = useSelector((store) => store.burgerIngredients.hasError);
-    
-
-  const dispatch = useDispatch();
 
   const orderNumberModal = useSelector((store) => store.order.number);
-  
 
-  useEffect(() => {
-    dispatch(getBurgerIngredients());
-  }, [dispatch]);
+  const dispatch = useDispatch();
 
   const handleCloseOrderModal = useCallback(() => {
     dispatch(closeOrderModal());
     dispatch({ type: RESET_INGREDIENT });
   }, [dispatch]);
 
-  const handleCloseIngredientDetailsModal = useCallback(() => {
+  const handleCloseIngredientModal = useCallback(() => {
     dispatch(closeIngredientModal());
   }, [dispatch]);
 
+  useEffect(() => {
+    dispatch(getBurgerIngredients());
+  }, [dispatch]);
 
-
-
-  
   return (
     <div className={AppStyle.page}>
       <AppHeader />
       <main className={AppStyle.content}>
-      {isLoading && (
-         <div className={AppStyle.loader}/>
-      )}
-        {hasError && "Что-то пошло не так...(   Попробуйте позже!"}
+        {isLoading && 
+        <div className={AppStyle.loader} />
+        }
+        {hasError && "Что-то пошло не так...( Попробуйте позже!"}
         {!isLoading && !hasError && (
-        <DndProvider backend={HTML5Backend}>
-          <BurgerIngredients />
-          <BurgerConstructor />
-        </DndProvider>
+          <DndProvider backend={HTML5Backend}>
+            <BurgerIngredients />
+            <BurgerConstructor />
+          </DndProvider>
         )}
       </main>
       {orderNumberModal && (
-        <Modal description="Детали заказа" closeModal={handleCloseOrderModal}>
+        <Modal 
+        description="Детали заказа" 
+        closeModal={handleCloseOrderModal}>
           <OrderDetails />
         </Modal>
       )}
       {openDetailsModal && (
         <Modal
           description="Детали ингредиентов"
-          closeModal={handleCloseIngredientDetailsModal}
+          closeModal={handleCloseIngredientModal}
         >
           <IngredientDetails data={openDetailsModal} />
         </Modal>

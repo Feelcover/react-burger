@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import { useRef } from "react";
 import { useDispatch } from "react-redux";
 import { useDrag, useDrop } from "react-dnd";
 import burgerConstructorStyles from "./BurgerConstructorItems.module.css";
@@ -6,7 +6,7 @@ import ingredientType from "../../utils/types";
 import {
   DELETE_INGREDIENT,
   MOVE_INGREDIENT,
-} from "../../services/actions/burger-constructor";
+} from "../../services/actions/constructor";
 import {
   ConstructorElement,
   DragIcon,
@@ -14,7 +14,6 @@ import {
 
 const BurgerConstructorItems = ({ index, items }) => {
   const dispatch = useDispatch();
-
   const { image, id, price, name } = items;
   const ref = useRef(null);
 
@@ -24,6 +23,16 @@ const BurgerConstructorItems = ({ index, items }) => {
       id: id,
     });
   };
+
+  const [{ opacity }, drag] = useDrag({
+    type: "item",
+    item: { id, index },
+    collect: (monitor) => {
+      return {
+        opacity: monitor.isDragging() ? 0.5 : 1,
+      };
+    },
+  });
 
   const [, drop] = useDrop({
     accept: "item",
@@ -41,17 +50,8 @@ const BurgerConstructorItems = ({ index, items }) => {
     },
   });
 
-  const [{ opacity }, drag] = useDrag({
-    type: "item",
-    item: { id, index },
-    collect: (monitor) => {
-      return {
-        opacity: monitor.isDragging() ? 0.5 : 1,
-      };
-    },
-  });
-
   drag(drop(ref));
+
   return (
     <li
       className={`${burgerConstructorStyles.item} pt-4 pr-3`}
@@ -71,6 +71,7 @@ const BurgerConstructorItems = ({ index, items }) => {
 
 BurgerConstructorItems.protoType = {
   items: ingredientType.isRequired,
+  index: ingredientType.isRequired,
 };
 
 export default BurgerConstructorItems;

@@ -8,27 +8,31 @@ import {
   CurrencyIcon,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { getOrderDetails } from "../../services/actions/order-details";
+import { getOrderDetails } from "../../services/actions/order";
 import {
   ADD_BUN,
   ADD_INGREDIENT_CONSTRUCTOR,
-} from "../../services/actions/burger-constructor";
+} from "../../services/actions/constructor";
 
 const BurgerConstructor = () => {
   const dispatch = useDispatch();
 
   const { bun, items } = useSelector((state) => state.burgerConstructor);
-  const orderDetailsModal = (productsId) => {
-    dispatch(getOrderDetails(itemsId));
-  };
-
-  const [total, setTotal] = useState(0);
 
   const filling = useMemo(
     () => items.filter((item) => item.type !== "bun"),
     [items]
   );
+  const itemsId = useMemo(() => items.map((item) => item._id), [items]);
 
+
+
+  const orderDetailsModal = (productsId) => {
+    dispatch(getOrderDetails(itemsId));
+  };
+
+  const [total, setTotal] = useState(0);
+  
   useEffect(() => {
     const totalPrice = filling.reduce(
       (sum, item) => sum + item.price,
@@ -37,7 +41,6 @@ const BurgerConstructor = () => {
     setTotal(totalPrice);
   }, [bun, filling]);
 
-  const itemsId = useMemo(() => items.map((item) => item._id), [items]);
 
   const [, dropTarget] = useDrop({
     accept: "ingredients",
@@ -60,7 +63,9 @@ const BurgerConstructor = () => {
     <section className={`${burgerConstructorStyles.section} pt-25 ml-10`}>
       <div className={`${burgerConstructorStyles.container}`} ref={dropTarget}>
         {bun.length === 0 ? (
-          <p className="text text_type_main-large pr-2 text_color_inactive">
+          <p
+            className={`${burgerConstructorStyles.instructionbun} text text_type_main-large pr-2 text_color_inactive`}
+          >
             Перетащите булочку сюда
           </p>
         ) : (
@@ -75,7 +80,7 @@ const BurgerConstructor = () => {
 
         {items.length === 0 ? (
           <p
-            className={`${burgerConstructorStyles.list} ${burgerConstructorStyles.text} pr-2 text text_type_main-large text_color_inactive`}
+            className={`${burgerConstructorStyles.instructionmain} ${burgerConstructorStyles.listmain} ${burgerConstructorStyles.text} pr-2 text text_type_main-large text_color_inactive`}
           >
             Перетащите начинку сюда
           </p>
@@ -96,7 +101,9 @@ const BurgerConstructor = () => {
           </ul>
         )}
         {bun.length === 0 ? (
-          <p className="text text_type_main-large pr-2 text_color_inactive">
+          <p
+            className={`${burgerConstructorStyles.instructionbun} text text_type_main-large pr-2 text_color_inactive`}
+          >
             Перетащите булочку сюда{" "}
           </p>
         ) : (

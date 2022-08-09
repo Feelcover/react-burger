@@ -1,14 +1,14 @@
 import { 
 	CLOSE_INGREDIENT_MODAL, 
 	OPEN_INGREDIENT_MODAL 
-} from "../actions/ingredient-details";
+} from "../actions/details";
 
 
 const ingredientInitialState = {
 	openModal: null
 };
 
-export const ingredientReducer = (state = ingredientInitialState, action) => {
+export const detailsReducer = (state = ingredientInitialState, action) => {
 	switch (action.type) {
 		case OPEN_INGREDIENT_MODAL: {
 			return {

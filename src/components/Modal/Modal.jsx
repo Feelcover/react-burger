@@ -14,10 +14,10 @@ const Modal = ({ description, closeModal, children }) => {
         closeModal();
       }
     }
-      document.addEventListener("keydown", handleEscKeydown);
-      return () => {
-        document.removeEventListener("keydown", handleEscKeydown);
-      };
+    document.addEventListener("keydown", handleEscKeydown);
+    return () => {
+      document.removeEventListener("keydown", handleEscKeydown);
+    };
   }, []);
 
   return ReactDOM.createPortal(

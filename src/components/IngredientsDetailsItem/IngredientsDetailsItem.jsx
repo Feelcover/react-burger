@@ -1,6 +1,6 @@
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
-import ingredientsDetailsItemStyles from "./IngredientsDetailsItem.module.css"
+import ingredientsDetailsItemStyles from "./IngredientsDetailsItem.module.css";
 
 const IngredientsDetailsItem = (data) => {
   return (
@@ -21,7 +21,7 @@ const IngredientsDetailsItem = (data) => {
 
 IngredientsDetailsItem.propTypes = {
   text: PropTypes.string.isRequired,
-  value: PropTypes.number.isRequired
-}
+  value: PropTypes.number.isRequired,
+};
 
 export default IngredientsDetailsItem;

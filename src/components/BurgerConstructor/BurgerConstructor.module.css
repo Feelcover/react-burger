@@ -61,3 +61,17 @@
 	align-items: center;
 }
 
+.instructionbun {
+    padding: 40px 30px;
+    border: 3px dashed #8585AD;
+}
+
+.instructionmain {
+    margin: 2px;
+    padding: 0px 30px;
+    border: 3px dashed #8585AD;
+}
+
+.listmain {
+    height: calc(100vh - 450px);
+}

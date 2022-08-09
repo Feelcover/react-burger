@@ -1,17 +1,17 @@
-import React from "react";
 import ingredientsStyles from "./Ingredients.module.css";
 import IngredientItem from "../IngredientItem/IngredientItem";
 import PropTypes from "prop-types";
 
 const Ingredients = ({ tabRef, ingredients, type }) => {
-
   const categories = {
     bun: "Булки",
     sauce: "Соусы",
     main: "Начинки",
   };
 
-  const ingredientCategory = ingredients.filter((element) => element.type === type);
+  const ingredientCategory = ingredients.filter(
+    (element) => element.type === type
+  );
 
   return (
     <li className={ingredientsStyles.category} id={type}>
@@ -23,13 +23,8 @@ const Ingredients = ({ tabRef, ingredients, type }) => {
       </h2>
       <ul className={ingredientsStyles.list}>
         {ingredientCategory.map((element) => (
-          <li
-            className={`${ingredientsStyles.item}`}
-            key={element._id}
-          >
-
+          <li className={`${ingredientsStyles.item}`} key={element._id}>
             <IngredientItem key={element._id} ingredient={element} />
-
           </li>
         ))}
       </ul>

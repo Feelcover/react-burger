@@ -2,7 +2,7 @@ import {
 	BURGER_INGREDIENTS_FAILED,
 	BURGER_INGREDIENTS_REQUEST,
 	BURGER_INGREDIENTS_SUCCESS
-} from "../actions/burger-ingredients";
+} from "../actions/ingredients";
 
 
 const ingredientsInitialState = {

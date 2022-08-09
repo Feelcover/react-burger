@@ -1,13 +1,13 @@
-import { constructorReducer } from "./reducers/burger-constructor";
-import { ingredientsReducer } from "./reducers/burger-ingredients";
-import { ingredientReducer } from "./reducers/ingredient-details";
-import { orderReducer } from "./reducers/order-details";
+import { constructorReducer } from "./reducers/constructor";
+import { ingredientsReducer } from "./reducers/ingredients";
+import { detailsReducer } from "./reducers/details";
+import { orderReducer } from "./reducers/order";
 import { combineReducers } from "redux";
 
 
 export const rootReducer = combineReducers({
 	order: orderReducer,
 	burgerIngredients: ingredientsReducer,
-	ingredientDetails: ingredientReducer,
+	ingredientDetails: detailsReducer,
 	burgerConstructor: constructorReducer
 });

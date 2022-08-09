@@ -1,21 +1,51 @@
-import React, { useState } from 'react';
+import { useState, useEffect } from 'react';
 import burgerIngredientsStyles from "./BurgerIngredients.module.css";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import Ingredients from "../Ingredients/Ingredients";
 import { useSelector } from 'react-redux';
+import { useInView } from 'react-intersection-observer';
 
 const BurgerIngredients = () => {
   const ingredients = useSelector(store => store.burgerIngredients.ingredients)
 
   const [current, setCurrent] = useState("bun");
 
-  const bunRef = React.useRef();
-  const sauceRef = React.useRef();
-  const mainRef = React.useRef();
-  const scrollTabClick = (e, tab) => {
-    setCurrent(e);
-    tab.current.scrollIntoView({ behavior: "smooth" });
-  };
+
+  const [bunRef, bunView] = useInView({
+		threshold: 0.1
+	});
+	const [sauceRef, sauceView] = useInView({
+		threshold: 0.1
+	});
+	const [mainRef, mainView] = useInView({
+		threshold: 0.1
+	});
+
+  const scrollTabClick = (e) => {
+		setCurrent(e);
+		const section = document.getElementById(e);
+		section.scrollIntoView({ behavior: "smooth", block: "start" });
+	};
+
+  const handleIngredientScroll = () => {
+		switch (true) {
+			case bunView:
+				setCurrent('bun');
+				break;
+			case sauceView:
+				setCurrent('sauce');
+				break;
+			case mainView:
+				setCurrent('main');
+				break;
+			default:
+				break;
+		}
+	};
+
+  useEffect(() => {
+		handleIngredientScroll();
+	}, [bunView, sauceView, mainView]);
 
   return (
     <section className={`${burgerIngredientsStyles.section} mt-10 pl-5`}>
@@ -27,7 +57,7 @@ const BurgerIngredients = () => {
       <div className={`${burgerIngredientsStyles.category} mb-5`}>
         <Tab
           active={current === "bun"}
-          onClick={(e) => scrollTabClick(e, bunRef)}
+          onClick={(e) => scrollTabClick(e)}
           value="bun"
         >
           Булки
@@ -35,7 +65,7 @@ const BurgerIngredients = () => {
 
         <Tab
           active={current === "sauce"}
-          onClick={(e) => scrollTabClick(e, sauceRef)}
+          onClick={(e) => scrollTabClick(e)}
           value="sauce"
         >
           Соусы
@@ -43,7 +73,7 @@ const BurgerIngredients = () => {
 
         <Tab
           active={current === "main"}
-          onClick={(e) => scrollTabClick(e, mainRef)}
+          onClick={(e) => scrollTabClick(e)}
           value="main"
         >
           Начинки

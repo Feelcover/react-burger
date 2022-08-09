@@ -25,7 +25,7 @@ function AppHeader() {
           >
             <a className={headerStyles.menu_link} href="#">
               <ListIcon type="secondary" />
-              <p className="text text_type_main-default text_color_inactive pl-2">
+              <p className='text text_type_main-default text_color_inactive pl-2'>
                 Лента заказов
               </p>
             </a>

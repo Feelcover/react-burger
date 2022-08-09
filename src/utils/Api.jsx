@@ -13,16 +13,15 @@ export const processResponse = (res) => {
 };
 
 export const getIngredientsData = async () => {
-	const res = await fetch(`${Api.url}/ingredients`, {
-	  method: "GET",
-	  headers: {
-		"Content-Type": "application/json",
-	  },
-	});
-	return processResponse(res);
-  };
+  const res = await fetch(`${Api.url}/ingredients`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  return processResponse(res);
+};
 
-  
 export const getOrderDetailsData = async (productsId) => {
   const res = await fetch(`${Api.url}/orders`, {
     method: "POST",
@@ -35,5 +34,3 @@ export const getOrderDetailsData = async (productsId) => {
   });
   return processResponse(res);
 };
-
-
