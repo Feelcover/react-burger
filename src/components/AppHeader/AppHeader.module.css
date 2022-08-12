@@ -24,13 +24,20 @@
 .menu_item {
     display: flex;
     align-items: center;
+    transition: all 0.3s ease-in
+}
+
+.menu_item:hover {
+    opacity: 0.8;
 }
 
 .menu_link {
     display: flex;
     text-decoration: none;
     color: inherit;
+   ;
 }
+
 
 .logo {
     display: flex;

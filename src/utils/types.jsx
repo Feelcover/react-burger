@@ -1,10 +1,15 @@
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
 const ingredientType = PropTypes.shape({
-		name: PropTypes.string.isRequired,
-        price: PropTypes.number.isRequired,
-        image: PropTypes.string.isRequired
-	});
-
+  price: PropTypes.number.isRequired,
+  name: PropTypes.string.isRequired,
+  image: PropTypes.string.isRequired,
+  proteins: PropTypes.number.isRequired,
+  fat: PropTypes.number.isRequired,
+  carbohydrates: PropTypes.number.isRequired,
+  calories: PropTypes.number.isRequired,
+  _id: PropTypes.string.isRequired,
+  image_large: PropTypes.string.isRequired,
+});
 
 export default ingredientType;

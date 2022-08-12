@@ -1,15 +1,17 @@
-import React from "react";
 import acceptedImg from "../../images/AcceptedIcon.svg";
 import orderDetailsStyles from "./OrderDetails.module.css";
-import PropTypes from "prop-types";
+import { useSelector } from 'react-redux';
 
-const OrderDetails = ({ orderNumber }) => {
+const OrderDetails = () => {
+
+  const  orderNumber  = useSelector(store => store.order.number);
+
   return (
     <div className={`${orderDetailsStyles.container} pl-25 pr-25`}>
       <h2
         className={`${orderDetailsStyles.title} text text_type_digits-large pt-15 pb-8`}
       >
-        {orderNumber.order.number}
+        {orderNumber}
       </h2>
       <p
         className={`${orderDetailsStyles.text} text text_type_main-medium pb-15`}
@@ -35,8 +37,5 @@ const OrderDetails = ({ orderNumber }) => {
   );
 };
 
-OrderDetails.propTypes = {
-  orderNumber: PropTypes.object.isRequired,
-};
 
 export default OrderDetails;

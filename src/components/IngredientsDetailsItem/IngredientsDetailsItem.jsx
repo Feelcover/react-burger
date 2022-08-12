@@ -1,20 +1,19 @@
-import React from "react";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
-import ingredientsDetailsItemStyles from "./IngredientsDetailsItem.module.css"
+import ingredientsDetailsItemStyles from "./IngredientsDetailsItem.module.css";
 
-const IngredientsDetailsItem = (props) => {
+const IngredientsDetailsItem = (data) => {
   return (
     <li className={`${ingredientsDetailsItemStyles.item}`}>
       <p
         className={`${ingredientsDetailsItemStyles.text} text text_type_main-default text_color_inactive pb-2`}
       >
-        {props.text}
+        {data.text}
       </p>
       <p
         className={`${ingredientsDetailsItemStyles.text} text text_type_main-default text_color_inactive`}
       >
-        {props.value}
+        {data.value}
       </p>
     </li>
   );
@@ -22,7 +21,7 @@ const IngredientsDetailsItem = (props) => {
 
 IngredientsDetailsItem.propTypes = {
   text: PropTypes.string.isRequired,
-  value: PropTypes.number.isRequired
-}
+  value: PropTypes.number.isRequired,
+};
 
 export default IngredientsDetailsItem;
