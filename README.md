@@ -13,7 +13,9 @@
 * Библиотека готовых компонентов:
  "npm i @ya.praktikum/react-developer-burger-ui-components"
 * Api
-* Роутинг и Авторизация
+* Роутинг 
+* Авторизация и Cookie
+
 
 ___
 

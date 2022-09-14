@@ -7,7 +7,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { Link, Redirect, useLocation } from "react-router-dom";
 import {
   resetPassword,
-  setResetFormValue
+  setResetFormValue,
 } from "../../services/actions/authorization";
 import { getCookie } from "../../utils/cookie";
 import resetPasswordStyles from "./resetPassword.module.css";
@@ -31,18 +31,16 @@ export const ResetPassword = () => {
     evt.preventDefault();
     dispatch(resetPassword({ password, token: code }));
   }
-  function suv () {
-    console.log("GJSDGO")
+  function suv() {
+    console.log("GJSDGO");
   }
 
-  
-
   if (cookie) {
-		return (<Redirect to={location.state?.from || '/'} />);
-	}
-	if (!forgotPassSuccess) {
-		return <Redirect to={{ pathname: "/forgot-password" }} />;
-	}
+    return <Redirect to={location.state?.from || "/"} />;
+  }
+  if (!forgotPassSuccess) {
+    return <Redirect to={{ pathname: "/forgot-password" }} />;
+  }
 
   return (
     <div className={resetPasswordStyles.container}>
@@ -71,17 +69,17 @@ export const ResetPassword = () => {
           />
         </div>
         <div className={resetPasswordStyles.button}>
-        <Button type="primary" size="medium">
-          {!!resetPassSuccess ? (
-            <Redirect to={location.state?.from || "/profile"} />
-          ) : 
-            ""
-          }
-          Сохранить
-        </Button>
-      </div>
+          <Button disabled={!password || !code} type="primary" size="medium">
+            {!!resetPassSuccess ? (
+              <Redirect to={location.state?.from || "/profile"} />
+            ) : (
+              ""
+            )}
+            Сохранить
+          </Button>
+        </div>
       </form>
-      
+
       <p className="pt-20 text_type_main-default text_color_inactive text">
         Вспомнили пароль?
         <Link className={resetPasswordStyles.link} to="/login">

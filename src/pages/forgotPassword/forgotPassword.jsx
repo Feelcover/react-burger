@@ -52,7 +52,7 @@ export const ForgotPassword = () => {
             size={"default"}
           />
         </div>
-        <Button type="primary" size="medium">
+        <Button disabled={!email} type="primary" size="medium">
           {forgotPassSuccess ? <Redirect to="/reset-password" /> : ""}
           Восстановить
         </Button>
