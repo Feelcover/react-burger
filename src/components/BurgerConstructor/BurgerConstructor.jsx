@@ -1,6 +1,8 @@
 import { useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useDrop } from "react-dnd";
+import { getCookie } from '../../utils/cookie';
+import { useHistory } from 'react-router-dom';
 import burgerConstructorStyles from "./BurgerConstructor.module.css";
 import BurgerConstructorItems from "../BurgerConstructorItems/BurgerConstructorItems";
 import {
@@ -16,6 +18,8 @@ import {
 
 const BurgerConstructor = () => {
   const dispatch = useDispatch();
+  const cookie = getCookie('token');
+	const history = useHistory();
 
   const { bun, items } = useSelector((state) => state.burgerConstructor);
 
@@ -27,9 +31,10 @@ const BurgerConstructor = () => {
 
 
 
-  const orderDetailsModal = (productsId) => {
-    dispatch(getOrderDetails(itemsId));
-  };
+  const orderDetailsModal = (itemsId) => {
+		cookie && dispatch(getOrderDetails(itemsId));
+		!cookie && history.push('/login');
+	};
 
   const [total, setTotal] = useState(0);
   

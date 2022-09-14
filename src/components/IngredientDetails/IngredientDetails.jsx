@@ -1,8 +1,12 @@
 import ingredientDetailsStyles from "./IngredientDetails.module.css";
-import ingredientType from "../../utils/types";
 import IngredientsDetailsItem from "../IngredientsDetailsItem/IngredientsDetailsItem";
+import { useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
-const IngredientDetails = ({ data }) => {
+const IngredientDetails = () => {
+	const { id } = useParams();
+  const ingredients = useSelector(store => store.burgerIngredients.ingredients);
+	const data = ingredients.find(ingredient => ingredient._id === id)
   return (
     <div className={`${ingredientDetailsStyles.container} pr-25 pb-15 pl-25`}>
       <img
@@ -31,8 +35,6 @@ const IngredientDetails = ({ data }) => {
   );
 };
 
-IngredientDetails.propTypes = {
-  data: ingredientType.isRequired,
-};
+
 
 export default IngredientDetails;

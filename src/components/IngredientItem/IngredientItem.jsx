@@ -8,8 +8,11 @@ import {
   CurrencyIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import ingredientType from "../../utils/types";
+import { Link, useLocation } from 'react-router-dom';
 
 const IngredientItem = ({ ingredient }) => {
+	const location = useLocation();
+
   const { bun, items } = useSelector((state) => state.burgerConstructor);
   const dispatch = useDispatch();
   const { image, name, price } = ingredient;
@@ -41,15 +44,19 @@ const IngredientItem = ({ ingredient }) => {
   };
 
   return (
+    <Link
+      className={`${ingredientItemStyles.link}`}
+			to={{ pathname: `/ingredients/${ingredient._id}`, state: { background: location } }}
+      onClick={() => handleOpenIngredientModal(ingredient)}
+    >
     <div
       className={`${ingredientItemStyles.item} `}
-      onClick={() => handleOpenIngredientModal(ingredient)}
       style={{ opacity }}
       ref={dragRef}
     >
       <img className={ingredientItemStyles.image} src={image} alt={name} />
       <div className={`${ingredientItemStyles.price} pt-1 pb-1`}>
-        <p className="text text_type_digits-default">{price}</p>
+        <p className="text text_type_digits-default pr-2">{price}</p>
         <CurrencyIcon type="primary" />
       </div>
       <p
@@ -59,6 +66,7 @@ const IngredientItem = ({ ingredient }) => {
       </p>
       {counter() > 0 && <Counter count={counter()} size="default" />}
     </div>
+    </Link>
   );
 };
 

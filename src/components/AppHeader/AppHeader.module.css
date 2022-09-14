@@ -34,12 +34,10 @@
 .menu_link {
     display: flex;
     text-decoration: none;
-    color: inherit;
-   ;
+    color: #8585AD;
 }
 
-
-.logo {
-    display: flex;
-    align-items: center;
+.menu_link_active {
+	cursor: default;
+    color: #FFFFFF;
 }

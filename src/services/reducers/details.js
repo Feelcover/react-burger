@@ -1,29 +1,28 @@
-import { 
-	CLOSE_INGREDIENT_MODAL, 
-	OPEN_INGREDIENT_MODAL 
+import {
+  CLOSE_INGREDIENT_MODAL,
+  OPEN_INGREDIENT_MODAL
 } from "../actions/details";
 
-
 const ingredientInitialState = {
-	openModal: null
+  openModal: null
 };
 
 export const detailsReducer = (state = ingredientInitialState, action) => {
-	switch (action.type) {
-		case OPEN_INGREDIENT_MODAL: {
-			return {
-				...state,
-				openModal: action.ingredient,
-			};
-		}
-		case CLOSE_INGREDIENT_MODAL: {
-			return {
-				...state,
-				openModal: null,
-			};
-		}
-		default: {
-			return state;
-		}
-	}
+  switch (action.type) {
+    case OPEN_INGREDIENT_MODAL: {
+      return {
+        ...state,
+        openModal: action.ingredient
+      };
+    }
+    case CLOSE_INGREDIENT_MODAL: {
+      return {
+        ...state,
+        openModal: null
+      };
+    }
+    default: {
+      return state;
+    }
+  }
 };
