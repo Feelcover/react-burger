@@ -55,6 +55,7 @@ const initialState = {
   user: {
     email: "",
     name: "",
+    password: ""
   },
 
   loginRequest: false,

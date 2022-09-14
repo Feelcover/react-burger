@@ -12,12 +12,15 @@ import profileStyle from "./profile.module.css";
 export const Profile = () => {
   const dispatch = useDispatch();
 
-  const { email, name } = useSelector((state) => state.authorization.user);
+ 
+  const { email, password, name } = useSelector(
+    (state) => state.authorization.user
+  );
 
   const [form, setForm] = useState({
     email: email,
     name: name,
-    password: "",
+    password: ""
   });
 
   function onSingOut() {
@@ -29,7 +32,7 @@ export const Profile = () => {
     dispatch(updateUser(form.email, form.name, form.password));
   }
 
-  function change(evt) {
+  function onChange(evt) {
     setForm({ ...form, [evt.target.name]: evt.target.value });
   }
 
@@ -92,7 +95,7 @@ export const Profile = () => {
           <form className={profileStyle.form} onSubmit={submit}>
             <div className="pb-6">
               <Input
-                onChange={change}
+                onChange={onChange}
                 type={"text"}
                 placeholder={"Имя"}
                 icon={"EditIcon"}
@@ -105,7 +108,7 @@ export const Profile = () => {
             </div>
             <div className="pb-6">
               <Input
-                onChange={change}
+                onChange={onChange}
                 type={"email"}
                 placeholder={"Логин"}
                 icon={"EditIcon"}
@@ -118,7 +121,7 @@ export const Profile = () => {
             </div>
             <div className="pb-6">
               <Input
-                onChange={change}
+                onChange={onChange}
                 type={"password"}
                 placeholder={"Пароль"}
                 icon={"EditIcon"}

@@ -31,9 +31,7 @@ export const ResetPassword = () => {
     evt.preventDefault();
     dispatch(resetPassword({ password, token: code }));
   }
-  function suv() {
-    console.log("GJSDGO");
-  }
+
 
   if (cookie) {
     return <Redirect to={location.state?.from || "/"} />;

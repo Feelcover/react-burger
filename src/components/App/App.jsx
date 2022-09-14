@@ -28,8 +28,6 @@ import { ProtectedRoute } from "../ProtectedRoute/ProtectedRoute";
 import { getCookie } from "../../utils/cookie";
 
 function App() {
-
-
   const location = useLocation();
   const history = useHistory();
   const background = location.state?.background;

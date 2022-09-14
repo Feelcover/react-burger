@@ -28,7 +28,7 @@ export const Register = () => {
     dispatch(registerUser(email, password, name));
   }
 
-  function change(evt) {
+  function onChange(evt) {
     dispatch(setRegisterFormValue(evt.target.name, evt.target.value));
   }
 
@@ -46,7 +46,7 @@ export const Register = () => {
       <form className={registrationStyle.form} onSubmit={formSubmit}>
         <div className="pb-6">
           <Input
-            onChange={change}
+            onChange={onChange}
             type={"text"}
             placeholder={"Имя"}
             value={name}
@@ -57,7 +57,7 @@ export const Register = () => {
         </div>
         <div className="pb-6">
           <EmailInput
-            onChange={change}
+            onChange={onChange}
             value={email}
             name={"email"}
             size="default"
@@ -65,7 +65,7 @@ export const Register = () => {
         </div>
         <div className="pb-6">
           <PasswordInput
-            onChange={change}
+            onChange={onChange}
             value={password}
             name={"password"}
             size="default"
