@@ -95,6 +95,7 @@ function App() {
           <Route path="/reset-password" exact>
             <ResetPassword />
           </Route>
+        
           <Route path="/ingredients/:id" exact={true}>
             <IngredientDetails />
           </Route>

@@ -1,5 +1,5 @@
 .container {
-	background: #000000;
+	background: #0f0f0f;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -13,6 +13,4 @@
 .link:hover {
 	color: #FFFFFF;
 }
-.img {
-	
-}
+
