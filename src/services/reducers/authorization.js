@@ -243,7 +243,7 @@ export const authorizationReducer = (state = initialState, action) => {
     case REGISTER_FORM_SUCCESS: {
       return {
         ...state,
-        user: action.payload,
+        user: action.form,
         form: {
           ...state.form,
           email: "",
@@ -272,7 +272,7 @@ export const authorizationReducer = (state = initialState, action) => {
     case PATCH_USER_SUCCESS: {
       return {
         ...state,
-        user: action.payload,
+        user: action.user,
         form: {
           ...state.form,
           email: "",

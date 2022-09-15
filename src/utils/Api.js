@@ -33,7 +33,7 @@ export const getOrderDetailsData = async (productsId) => {
     }),
     headers: {
       "Content-Type": "application/json",
-      Authorization: "Bearer " + getCookie("token"),
+	Authorization: 'Bearer ' + getCookie('token')
     },
   });
   return processResponse(res);

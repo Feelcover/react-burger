@@ -64,6 +64,8 @@ function App() {
     }
   }, [dispatch, token, cookie]);
 
+
+
   return (
     <div className={AppStyle.page}>
       <AppHeader />

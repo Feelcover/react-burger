@@ -13,8 +13,10 @@ import { Orders } from "./orders/orders";
 import profileStyle from "./profile.module.css";
 
 export const Profile = () => {
-  const dispatch = useDispatch();
   const { email, name } = useSelector((state) => state.authorization.user);
+  
+  const dispatch = useDispatch();
+
 
   const [form, setForm] = useState({
     email: "",
