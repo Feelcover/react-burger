@@ -1,26 +1,25 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Button,
   Input,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, Route, Switch } from "react-router-dom";
-import { singOut, updateUser } from "../../services/actions/authorization";
+import {
+  singOut,
+  updateUser,
+} from "../../services/actions/authorization";
 import { Orders } from "./orders/orders";
 import profileStyle from "./profile.module.css";
 
 export const Profile = () => {
   const dispatch = useDispatch();
-
- 
-  const { email, password, name } = useSelector(
-    (state) => state.authorization.user
-  );
+  const { email, name } = useSelector((state) => state.authorization.user);
 
   const [form, setForm] = useState({
-    email: email,
-    name: name,
-    password: ""
+    email: "",
+    name: "",
+    password: "",
   });
 
   function onSingOut() {
@@ -35,6 +34,14 @@ export const Profile = () => {
   function onChange(evt) {
     setForm({ ...form, [evt.target.name]: evt.target.value });
   }
+
+  useEffect(() => {
+    setForm({
+      email: email,
+      name: name,
+      password: "",
+    });
+  }, [email, name]);
 
   function reset(evt) {
     evt.preventDefault();
@@ -88,16 +95,16 @@ export const Profile = () => {
         </p>
       </nav>
       <Switch>
-        <Route exact path="/profile/orders">
+        <Route path="/profile/orders" exact >
           <Orders />
         </Route>
-        <Route exact path="/profile">
+        <Route path="/profile" exact>
           <form className={profileStyle.form} onSubmit={submit}>
             <div className="pb-6">
               <Input
-                onChange={onChange}
                 type={"text"}
                 placeholder={"Имя"}
+                onChange={onChange}
                 icon={"EditIcon"}
                 value={form.name}
                 name={"name"}
@@ -108,9 +115,9 @@ export const Profile = () => {
             </div>
             <div className="pb-6">
               <Input
-                onChange={onChange}
                 type={"email"}
                 placeholder={"Логин"}
+                onChange={onChange}
                 icon={"EditIcon"}
                 value={form.email}
                 name={"email"}
@@ -121,9 +128,9 @@ export const Profile = () => {
             </div>
             <div className="pb-6">
               <Input
-                onChange={onChange}
                 type={"password"}
                 placeholder={"Пароль"}
+                onChange={onChange}
                 icon={"EditIcon"}
                 value={form.password}
                 name={"password"}
@@ -136,7 +143,11 @@ export const Profile = () => {
               <Button type="primary" size="medium" onClick={reset}>
                 Oтмена
               </Button>
-              <Button disabled={!form.password} type="primary" size="medium">
+              <Button
+                disabled={!form.email && !form.password && !form.name}
+                type="primary"
+                size="medium"
+              >
                 Сохранить
               </Button>
             </div>

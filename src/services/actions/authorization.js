@@ -204,7 +204,7 @@ export function updateUser(email, name, password) {
       .then((res) => {
         dispatch({
           type: PATCH_USER_SUCCESS,
-          user: res,
+          user: res.user,
         });
       })
       .catch(() => {

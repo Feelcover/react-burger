@@ -33,18 +33,6 @@ import {
 const initialState = {
   message: "",
 
-  forgotPassRequest: false,
-  forgotPassFailed: false,
-  forgotPassSuccess: false,
-
-  resetPassRequest: false,
-  resetPassFailed: false,
-  resetPassSuccess: false,
-
-
-  
-
-
   form: {
     email: "",
     password: "",
@@ -55,8 +43,16 @@ const initialState = {
   user: {
     email: "",
     name: "",
-    password: ""
   },
+
+
+  forgotPassRequest: false,
+  forgotPassFailed: false,
+  forgotPassSuccess: false,
+
+  resetPassRequest: false,
+  resetPassFailed: false,
+  resetPassSuccess: false,
 
   loginRequest: false,
   loginFailed: false,

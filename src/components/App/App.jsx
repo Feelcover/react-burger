@@ -34,11 +34,11 @@ function App() {
   const token = localStorage.getItem("refreshToken");
   const cookie = getCookie("token");
 
-  const orderNumberModal = useSelector((store) => store.order.number);
+  const orderNumberModal = useSelector((state) => state.order.number);
 
   const dispatch = useDispatch();
-  const isLoading = useSelector((store) => store.burgerIngredients.isLoading);
-  const hasError = useSelector((store) => store.burgerIngredients.hasError);
+  const isLoading = useSelector((state) => state.burgerIngredients.isLoading);
+  const hasError = useSelector((state) => state.burgerIngredients.hasError);
 
   const handleCloseOrderModal = useCallback(() => {
     dispatch(closeOrderModal());
@@ -54,13 +54,13 @@ function App() {
     dispatch(getBurgerIngredients());
   }, [dispatch]);
 
-  useEffect(() => {
-    dispatch(getUser());
-  }, [dispatch]);
 
   useEffect(() => {
     if (!cookie && token) {
       dispatch(updateToken());
+    }
+    if (cookie && token) {
+      dispatch(getUser());
     }
   }, [dispatch, token, cookie]);
 
@@ -105,7 +105,7 @@ function App() {
         </Switch>
         
         {background && (
-          <Route path="/ingredients/:id" exact={true}>
+          <Route path="/ingredients/:id" exact>
             <Modal
               description="Детали ингредиента"
               closeModal={handleCloseIngredientModal}

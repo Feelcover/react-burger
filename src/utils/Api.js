@@ -1,6 +1,5 @@
 import { getCookie } from "./cookie";
 
-
 export const Api = {
   url: "https://norma.nomoreparties.space/api",
   headers: {
@@ -11,8 +10,9 @@ export const Api = {
 export const processResponse = (res) => {
   if (res.ok) {
     return res.json();
+  } else {
+    return Promise.reject(new Error(`Ошибка: Код ${res.status}`));
   }
-  return Promise.reject(new Error(`Ошибка: Код ${res.status}`));
 };
 
 export const getIngredientsData = async () => {
@@ -33,121 +33,109 @@ export const getOrderDetailsData = async (productsId) => {
     }),
     headers: {
       "Content-Type": "application/json",
+      Authorization: "Bearer " + getCookie("token"),
     },
   });
   return processResponse(res);
 };
 
-export const forgotPassRequest = async email => {
-	return await fetch(`${Api.url}/password-reset`, {
-		method: 'POST',
-		body: JSON.stringify(
-			email
-		),
-		mode: 'cors',
-		cache: 'no-cache',
-		credentials: 'same-origin',
-		headers: {
-			'Content-Type': 'application/json',
-		},
-		redirect: 'follow',
-		referrerPolicy: 'no-referrer',
-	})
-		.then(processResponse);
-}
+export const forgotPassRequest = async (email) => {
+  return await fetch(`${Api.url}/password-reset`, {
+    method: "POST",
+    body: JSON.stringify(email),
+    mode: "cors",
+    cache: "no-cache",
+    credentials: "same-origin",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    redirect: "follow",
+    referrerPolicy: "no-referrer",
+  }).then(processResponse);
+};
 
 export const resetPassRequest = async (password, token) => {
-	return await fetch(`${Api.url}/password-reset/reset`, {
-		method: 'POST',
-		body: JSON.stringify(
-			password,
-			token,
-		),
-		headers: {
-			'Content-Type': 'application/json',
-		},
-	})
-		.then(processResponse);
-}
+  return await fetch(`${Api.url}/password-reset/reset`, {
+    method: "POST",
+    body: JSON.stringify(password, token),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  }).then(processResponse);
+};
 
 export const loginRequest = async (email, password) => {
-	return await fetch(`${Api.url}/auth/login`, {
-		method: 'POST',
-		headers: {
-			'Content-Type': 'application/json',
-		},
-		body: JSON.stringify({
-			email: email,
-			password: password,
-		}),
-	})
-		.then(processResponse);
-}
+  return await fetch(`${Api.url}/auth/login`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      email: email,
+      password: password,
+    }),
+  }).then(processResponse);
+};
 
 export const registerUserRequest = async (email, password, name) => {
-	return await fetch(`${Api.url}/auth/register`, {
-		method: 'POST',
-		body: JSON.stringify({
-			email: email,
-			password: password,
-			name: name,
-		}),
-		headers: {
-			'Content-Type': 'application/json',
-		},
-	})
-		.then(processResponse);
-}
+  return await fetch(`${Api.url}/auth/register`, {
+    method: "POST",
+    body: JSON.stringify({
+      email: email,
+      password: password,
+      name: name,
+    }),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  }).then(processResponse);
+};
 
 export const logoutRequest = async () => {
-	return await fetch(`${Api.url}/auth/logout`, {
-		method: 'POST',
-		headers: {
-			'Content-Type': 'application/json',
-		},
-		body: JSON.stringify({
-			token: localStorage.getItem('refreshToken'),
-		}),
-	})
-		.then(processResponse);
-}
+  return await fetch(`${Api.url}/auth/logout`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      token: localStorage.getItem("refreshToken"),
+    }),
+  }).then(processResponse);
+};
 
 export const getUserRequest = async () => {
-	return await fetch(`${Api.url}/auth/user`, {
-		method: 'GET',
-		headers: {
-			'Content-Type': 'application/json',
-			Authorization: 'Bearer ' + getCookie('token'),
-		},
-	})
-		.then(processResponse);
-}
+  return await fetch(`${Api.url}/auth/user`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + getCookie("token"),
+    },
+  }).then(processResponse);
+};
 
 export const updateUserRequest = async (email, name, password) => {
-	return await fetch(`${Api.url}/auth/user`, {
-		method: 'PATCH',
-		headers: {
-			'Content-Type': 'application/json',
-			Authorization: 'Bearer ' + getCookie('token'),
-		},
-		body: JSON.stringify({
-			email: email,
-			name: name,
-			password: password,
-		}),
-	})
-		.then(processResponse);
-}
+  return await fetch(`${Api.url}/auth/user`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + getCookie("token"),
+    },
+    body: JSON.stringify({
+      email: email,
+      name: name,
+      password: password,
+    }),
+  }).then(processResponse);
+};
 
 export const updateTokenRequest = async () => {
-	return await fetch(`${Api.url}/auth/token`, {
-		method: 'POST',
-		headers: {
-			'Content-Type': 'application/json',
-		},
-		body: JSON.stringify({
-			token: localStorage.getItem('refreshToken'),
-		}),
-	})
-		.then(processResponse);
-}
+  return await fetch(`${Api.url}/auth/token`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      token: localStorage.getItem("refreshToken"),
+    }),
+  }).then(processResponse);
+};
