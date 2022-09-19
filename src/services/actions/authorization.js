@@ -38,6 +38,8 @@ export const UPDATE_TOKEN_REQUEST = "UPDATE_TOKEN_REQUEST";
 export const UPDATE_TOKEN_SUCCESS = "UPDATE_TOKEN_SUCCESS";
 export const UPDATE_TOKEN_FAILED = "UPDATE_TOKEN_FAILED";
 
+
+
 export function forgotPassword(email) {
   return function (dispatch) {
     dispatch({
@@ -207,7 +209,7 @@ export function updateUser(email, name, password) {
           user: res.user,
         });
       })
-      .catch(() => {
+      .catch((err) => {
         dispatch({
           type: PATCH_USER_FAILED,
         });
@@ -235,4 +237,6 @@ export function updateToken() {
       });
   };
 }
+
+
 

@@ -33,6 +33,8 @@ import {
 const initialState = {
   message: "",
 
+  
+
   form: {
     email: "",
     password: "",
@@ -44,7 +46,7 @@ const initialState = {
     email: "",
     name: "",
   },
-
+  
 
   forgotPassRequest: false,
   forgotPassFailed: false,

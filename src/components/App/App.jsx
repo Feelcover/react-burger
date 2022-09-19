@@ -40,6 +40,8 @@ function App() {
   const isLoading = useSelector((state) => state.burgerIngredients.isLoading);
   const hasError = useSelector((state) => state.burgerIngredients.hasError);
 
+
+
   const handleCloseOrderModal = useCallback(() => {
     dispatch(closeOrderModal());
     dispatch({ type: RESET_INGREDIENT });
@@ -52,7 +54,7 @@ function App() {
 
   useEffect(() => {
     dispatch(getBurgerIngredients());
-  }, [dispatch]);
+   }, [dispatch]);
 
 
   useEffect(() => {

@@ -1,4 +1,4 @@
-import { getCookie } from "./cookie";
+import { getCookie, setCookie } from "./cookie";
 
 export const Api = {
   url: "https://norma.nomoreparties.space/api",
@@ -139,3 +139,28 @@ export const updateTokenRequest = async () => {
     }),
   }).then(processResponse);
 };
+
+
+export const fetchRefresh = async (url, options) => {
+  try {
+    const res = await fetch(url, options);
+    console.log(res)
+    return await processResponse(res);
+    } catch (err) {
+      if(err.message === "jwt expired") {
+        const refreshData = await updateTokenRequest();
+        if (!refreshData.success) {
+          Promise.reject(refreshData);
+        }
+        localStorage.setItem("refreshToken", refreshData.refreshToken);
+        setCookie("token", refreshData.token);
+        options.headers.authorization = refreshData.token;
+        const res = await fetch(url, options);
+        return await processResponse(res);
+      } else {
+
+        return Promise.reject(err);
+      }
+    }
+}
+
