@@ -8,12 +8,14 @@ export const Api = {
 };
 
 export const processResponse = (res) => {
+   
   if (res.ok) {
     return res.json();
   } else {
-    return Promise.reject(new Error(`Ошибка: Код ${res.status}`));
+    return res.json().then((err) => Promise.reject(err));
   }
 };
+
 
 export const getIngredientsData = async () => {
   const res = await fetch(`${Api.url}/ingredients`, {
@@ -104,17 +106,17 @@ export const logoutRequest = async () => {
 };
 
 export const getUserRequest = async () => {
-  return await fetch(`${Api.url}/auth/user`, {
+  return await fetchRefresh(`${Api.url}/auth/user`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
       Authorization: "Bearer " + getCookie("token"),
     },
-  }).then(processResponse);
+  })
 };
 
 export const updateUserRequest = async (email, name, password) => {
-  return await fetch(`${Api.url}/auth/user`, {
+  return await fetchRefresh(`${Api.url}/auth/user`, {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",
@@ -125,7 +127,7 @@ export const updateUserRequest = async (email, name, password) => {
       name: name,
       password: password,
     }),
-  }).then(processResponse);
+  })
 };
 
 export const updateTokenRequest = async () => {
@@ -144,21 +146,20 @@ export const updateTokenRequest = async () => {
 export const fetchRefresh = async (url, options) => {
   try {
     const res = await fetch(url, options);
-    console.log(res)
     return await processResponse(res);
     } catch (err) {
+      console.log(err.message)
       if(err.message === "jwt expired") {
-        const refreshData = await updateTokenRequest();
-        if (!refreshData.success) {
-          Promise.reject(refreshData);
+        const refreshToken = await updateTokenRequest();
+        if (!refreshToken.success) {
+          Promise.reject(refreshToken);
         }
-        localStorage.setItem("refreshToken", refreshData.refreshToken);
-        setCookie("token", refreshData.token);
-        options.headers.authorization = refreshData.token;
+        localStorage.setItem("refreshToken", refreshToken.refreshToken);
+        setCookie("accessToken", refreshToken.accessToken);
+        options.headers.Authorization = refreshToken.accessToken;
         const res = await fetch(url, options);
         return await processResponse(res);
       } else {
-
         return Promise.reject(err);
       }
     }

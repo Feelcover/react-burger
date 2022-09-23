@@ -8,16 +8,12 @@ import { NavLink, Route, Switch } from "react-router-dom";
 import {
   singOut,
   updateUser,
-  updateToken,
 } from "../../services/actions/authorization";
 import { Orders } from "./orders/orders";
 import profileStyle from "./profile.module.css";
 
 export const Profile = () => {
   const { email, name } = useSelector((state) => state.authorization.user);
-  const isUpdateUserFailed = useSelector((state) => state.authorization.updateUserFailed);
-  const isGetUserFailed = useSelector((state) => state.authorization.getUserFailed);
-
   
   const dispatch = useDispatch();
 
@@ -35,7 +31,6 @@ export const Profile = () => {
   function submit(evt) {
     evt.preventDefault();
     dispatch(updateUser(form.email, form.name, form.password));
-    checkToken()
   }
 
   function onChange(evt) {
@@ -58,18 +53,7 @@ export const Profile = () => {
       password: "",
     });
   }
-  
-  function checkToken() {
-    if(isUpdateUserFailed === true || isGetUserFailed === true) {
-      dispatch(updateToken());
-      setTimeout(() => {
-        dispatch(updateUser(form.email, form.name, form.password));
-        console.log("Updated")
-      }, "1000")
-    }else{
-     return console.log("Not updated")
-    }
-  }
+
 
 
   return (
