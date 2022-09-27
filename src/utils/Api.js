@@ -8,7 +8,6 @@ export const Api = {
 };
 
 export const processResponse = (res) => {
-   
   if (res.ok) {
     return res.json();
   } else {
@@ -16,33 +15,34 @@ export const processResponse = (res) => {
   }
 };
 
+function request(url, options) {
+  return fetch(url, options).then(processResponse);
+}
 
 export const getIngredientsData = async () => {
-  const res = await fetch(`${Api.url}/ingredients`, {
+  return await request(`${Api.url}/ingredients`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
     },
   });
-  return processResponse(res);
 };
 
 export const getOrderDetailsData = async (productsId) => {
-  const res = await fetch(`${Api.url}/orders`, {
+  return await request(`${Api.url}/orders`, {
     method: "POST",
     body: JSON.stringify({
       ingredients: productsId,
     }),
     headers: {
       "Content-Type": "application/json",
-	Authorization: 'Bearer ' + getCookie('token')
+      Authorization: "Bearer " + getCookie("token"),
     },
   });
-  return processResponse(res);
 };
 
 export const forgotPassRequest = async (email) => {
-  return await fetch(`${Api.url}/password-reset`, {
+  return await request(`${Api.url}/password-reset`, {
     method: "POST",
     body: JSON.stringify(email),
     mode: "cors",
@@ -53,21 +53,21 @@ export const forgotPassRequest = async (email) => {
     },
     redirect: "follow",
     referrerPolicy: "no-referrer",
-  }).then(processResponse);
+  })
 };
 
 export const resetPassRequest = async (password, token) => {
-  return await fetch(`${Api.url}/password-reset/reset`, {
+  return await request(`${Api.url}/password-reset/reset`, {
     method: "POST",
     body: JSON.stringify(password, token),
     headers: {
       "Content-Type": "application/json",
     },
-  }).then(processResponse);
+  })
 };
 
 export const loginRequest = async (email, password) => {
-  return await fetch(`${Api.url}/auth/login`, {
+  return await request(`${Api.url}/auth/login`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -76,11 +76,11 @@ export const loginRequest = async (email, password) => {
       email: email,
       password: password,
     }),
-  }).then(processResponse);
+  })
 };
 
 export const registerUserRequest = async (email, password, name) => {
-  return await fetch(`${Api.url}/auth/register`, {
+  return await request(`${Api.url}/auth/register`, {
     method: "POST",
     body: JSON.stringify({
       email: email,
@@ -90,11 +90,11 @@ export const registerUserRequest = async (email, password, name) => {
     headers: {
       "Content-Type": "application/json",
     },
-  }).then(processResponse);
+  })
 };
 
 export const logoutRequest = async () => {
-  return await fetch(`${Api.url}/auth/logout`, {
+  return await request(`${Api.url}/auth/logout`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -102,7 +102,7 @@ export const logoutRequest = async () => {
     body: JSON.stringify({
       token: localStorage.getItem("refreshToken"),
     }),
-  }).then(processResponse);
+  })
 };
 
 export const getUserRequest = async () => {
@@ -112,7 +112,7 @@ export const getUserRequest = async () => {
       "Content-Type": "application/json",
       Authorization: "Bearer " + getCookie("token"),
     },
-  })
+  });
 };
 
 export const updateUserRequest = async (email, name, password) => {
@@ -127,11 +127,11 @@ export const updateUserRequest = async (email, name, password) => {
       name: name,
       password: password,
     }),
-  })
+  });
 };
 
 export const updateTokenRequest = async () => {
-  return await fetch(`${Api.url}/auth/token`, {
+  return await request(`${Api.url}/auth/token`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -139,29 +139,27 @@ export const updateTokenRequest = async () => {
     body: JSON.stringify({
       token: localStorage.getItem("refreshToken"),
     }),
-  }).then(processResponse);
+  })
 };
-
 
 export const fetchRefresh = async (url, options) => {
   try {
     const res = await fetch(url, options);
     return await processResponse(res);
-    } catch (err) {
-      console.log(err.message)
-      if(err.message === "jwt expired") {
-        const refreshToken = await updateTokenRequest();
-        if (!refreshToken.success) {
-          Promise.reject(refreshToken);
-        }
-        localStorage.setItem("refreshToken", refreshToken.refreshToken);
-        setCookie("accessToken", refreshToken.accessToken);
-        options.headers.Authorization = refreshToken.accessToken;
-        const res = await fetch(url, options);
-        return await processResponse(res);
-      } else {
-        return Promise.reject(err);
+  } catch (err) {
+    if (err.message === "jwt expired") {
+      const refreshToken = await updateTokenRequest();
+      const accessToken = refreshToken.accessToken.split("Bearer ")[1];
+      if (!refreshToken.success) {
+        Promise.reject(refreshToken);
       }
+      localStorage.setItem("refreshToken", refreshToken.refreshToken);
+      setCookie("token", accessToken);
+      options.headers.Authorization = refreshToken.accessToken;
+      const res = await fetch(url, options);
+      return await processResponse(res);
+    } else {
+      return Promise.reject(err);
     }
-}
-
+  }
+};
