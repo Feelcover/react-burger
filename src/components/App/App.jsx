@@ -14,17 +14,33 @@ import { getBurgerIngredients } from "../../services/actions/ingredients";
 import { closeIngredientModal } from "../../services/actions/details";
 import { RESET_INGREDIENT } from "../../services/actions/constructor";
 
+import { Switch, Route, useLocation, useHistory } from "react-router-dom";
+import {
+  ForgotPassword,
+  Login,
+  NotFound404,
+  Profile,
+  Register,
+  ResetPassword,
+} from "../../pages";
+import { getUser, updateToken } from "../../services/actions/authorization";
+import { ProtectedRoute } from "../ProtectedRoute/ProtectedRoute";
+import { getCookie } from "../../utils/cookie";
+
 function App() {
-  const openDetailsModal = useSelector(
-    (store) => store.ingredientDetails.openModal
-  );
+  const location = useLocation();
+  const history = useHistory();
+  const background = location.state?.background;
+  const token = localStorage.getItem("refreshToken");
+  const cookie = getCookie("token");
 
-  const isLoading = useSelector((store) => store.burgerIngredients.isLoading);
-  const hasError = useSelector((store) => store.burgerIngredients.hasError);
-
-  const orderNumberModal = useSelector((store) => store.order.number);
+  const orderNumberModal = useSelector((state) => state.order.number);
 
   const dispatch = useDispatch();
+  const isLoading = useSelector((state) => state.burgerIngredients.isLoading);
+  const hasError = useSelector((state) => state.burgerIngredients.hasError);
+
+
 
   const handleCloseOrderModal = useCallback(() => {
     dispatch(closeOrderModal());
@@ -33,40 +49,80 @@ function App() {
 
   const handleCloseIngredientModal = useCallback(() => {
     dispatch(closeIngredientModal());
+    history.replace("/");
   }, [dispatch]);
 
   useEffect(() => {
     dispatch(getBurgerIngredients());
-  }, [dispatch]);
+   }, [dispatch]);
+
+
+  useEffect(() => {
+    if (!cookie && token) {
+      dispatch(updateToken());
+    }
+    if (cookie && token) {
+      dispatch(getUser());
+    }
+  }, [dispatch, token, cookie]);
+
+
 
   return (
     <div className={AppStyle.page}>
       <AppHeader />
-      <main className={AppStyle.content}>
-        {isLoading && 
-        <div className={AppStyle.loader} />
-        }
-        {hasError && "Что-то пошло не так...( Попробуйте позже!"}
-        {!isLoading && !hasError && (
-          <DndProvider backend={HTML5Backend}>
-            <BurgerIngredients />
-            <BurgerConstructor />
-          </DndProvider>
+      <>
+        <Switch location={background || location}>
+          <Route path="/" exact>
+            <main className={AppStyle.content}>
+              {isLoading && <div className={AppStyle.loader} />}
+              {hasError && "Что-то пошло не так...( Попробуйте позже!"}
+              {!isLoading && !hasError && (
+                <DndProvider backend={HTML5Backend}>
+                  <BurgerIngredients />
+                  <BurgerConstructor />
+                </DndProvider>
+              )}
+            </main>
+          </Route>
+          <Route path="/login" exact>
+            <Login />
+          </Route>
+          <Route path="/register" exact>
+            <Register />
+          </Route>
+          <Route path="/forgot-password" exact>
+            <ForgotPassword />
+          </Route>
+          <Route path="/reset-password" exact>
+            <ResetPassword />
+          </Route>
+        
+          <Route path="/ingredients/:id" exact={true}>
+            <IngredientDetails />
+          </Route>
+          <ProtectedRoute path="/profile">
+            <Profile />
+          </ProtectedRoute>
+          <Route>
+            <NotFound404 />
+          </Route>
+        </Switch>
+        
+        {background && (
+          <Route path="/ingredients/:id" exact>
+            <Modal
+              description="Детали ингредиента"
+              closeModal={handleCloseIngredientModal}
+            >
+              <IngredientDetails />
+            </Modal>
+          </Route>
         )}
-      </main>
+      </>
       {orderNumberModal && (
-        <Modal 
-        description="Детали заказа" 
-        closeModal={handleCloseOrderModal}>
+        <Modal description="Детали заказа" closeModal={handleCloseOrderModal}>
           <OrderDetails />
-        </Modal>
-      )}
-      {openDetailsModal && (
-        <Modal
-          description="Детали ингредиентов"
-          closeModal={handleCloseIngredientModal}
-        >
-          <IngredientDetails data={openDetailsModal} />
         </Modal>
       )}
     </div>

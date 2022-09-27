@@ -5,12 +5,6 @@ export const ORDER_DETAILS_SUCCESS = "ORDER_DETAILS_SUCCESS";
 export const ORDER_DETAILS_FAILED = "ORDER_DETAILS_FAILED";
 export const CLOSE_ORDER_MODAL = "CLOSE_ORDER_MODAL";
 
-export function closeOrderModal() {
-  return {
-    type: CLOSE_ORDER_MODAL,
-  };
-}
-
 export function getOrderDetails(order) {
   return function (dispatch) {
     dispatch({
@@ -28,5 +22,11 @@ export function getOrderDetails(order) {
           type: ORDER_DETAILS_FAILED,
         });
       });
+  };
+}
+
+export function closeOrderModal() {
+  return {
+    type: CLOSE_ORDER_MODAL,
   };
 }

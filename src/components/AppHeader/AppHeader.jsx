@@ -1,5 +1,5 @@
-import React from "react";
 import headerStyles from "./AppHeader.module.css";
+import { Link, NavLink, useLocation } from "react-router-dom";
 import {
   Logo,
   BurgerIcon,
@@ -8,43 +8,78 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 
 function AppHeader() {
+  const location = useLocation();
+
   return (
     <header className={headerStyles.header}>
       <nav className={`${headerStyles.menu}`}>
         <div className={headerStyles.menu_container}>
+
           <div
             className={`${headerStyles.menu_item} mt-4 mb-4 pl-5 pt-4 pb-4 pr-5 mr-2`}
           >
-            <a className={headerStyles.menu_link} href="#">
-              <BurgerIcon type="primary" />
+            <NavLink
+              to="/"
+              exact
+              className={headerStyles.menu_link}
+              activeClassName={`${headerStyles.menu_link_active} text text_type_main-default`}
+            >
+              <BurgerIcon
+                type={location.pathname === "/" ? "primary" : "secondary"}
+              />
               <p className="text text_type_main-default pl-2">Конструктор</p>
-            </a>
+            </NavLink>
           </div>
+
           <div
             className={`${headerStyles.menu_item} mt-4 mb-4 pl-5 pt-4 pb-4 pr-3`}
           >
-            <a className={headerStyles.menu_link} href="#">
-              <ListIcon type="secondary" />
-              <p className='text text_type_main-default text_color_inactive pl-2'>
+            <NavLink
+              to="/feed"
+              exact
+              className={headerStyles.menu_link}
+              activeClassName={`${headerStyles.menu_link_active} text text_type_main-default`}
+            >
+              <ListIcon
+                type={location.pathname === "/feed" ? "primary" : "secondary"}
+              />
+              <p className="text text_type_main-default pl-2">
                 Лента заказов
               </p>
-            </a>
+            </NavLink>
           </div>
-          <div className={`${headerStyles.logo} ml-25`}>
-          <Logo type="primary" />
-        </div>
+
+          <div className={`${headerStyles.menu_item} ml-25`}>
+            <Link to="/">
+              <Logo type="primary" />
+            </Link>
+          </div>
+          
         </div>
 
         <div
           className={`${headerStyles.menu_item} mt-4 mb-4 pl-5 pt-4 pb-4 pr-5`}
         >
-          <a className={headerStyles.menu_link} href="#">
-          <ProfileIcon type="secondary" />
-            <p className="text text_type_main-default text_color_inactive pl-2">
+          <NavLink
+            to="/profile"
+            className={headerStyles.menu_link}
+            activeClassName={`${headerStyles.menu_link_active} text text_type_main-default`}
+          >
+            <ProfileIcon
+              type={
+                location.pathname === "/profile" ||
+                location.pathname === "/profile/orders" ||
+                location.pathname === "/login"
+                  ? "primary"
+                  : "secondary"
+              }
+            />
+            <p className="text text_type_main-default pl-2">
               Личный кабинет
             </p>
-          </a>
+          </NavLink>
         </div>
+
       </nav>
     </header>
   );
