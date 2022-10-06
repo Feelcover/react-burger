@@ -1,7 +1,6 @@
 import {
-  CLOSE_INGREDIENT_MODAL,
-  OPEN_INGREDIENT_MODAL
-} from "../actions/details";
+  CLOSE_INGREDIENT_MODAL
+} from "../actions/details"
 
 const ingredientInitialState = {
   openModal: null
@@ -9,12 +8,6 @@ const ingredientInitialState = {
 
 export const detailsReducer = (state = ingredientInitialState, action) => {
   switch (action.type) {
-    case OPEN_INGREDIENT_MODAL: {
-      return {
-        ...state,
-        openModal: action.ingredient
-      };
-    }
     case CLOSE_INGREDIENT_MODAL: {
       return {
         ...state,

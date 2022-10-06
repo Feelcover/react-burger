@@ -1,22 +1,19 @@
 import { useMemo } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { useDrag } from "react-dnd";
-import { openIngredientModal } from "../../services/actions/details";
 import ingredientItemStyles from "./IngredientItem.module.css";
 import {
   Counter,
   CurrencyIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import ingredientType from "../../utils/types";
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation } from "react-router-dom";
 
 const IngredientItem = ({ ingredient }) => {
-	const location = useLocation();
-
   const { bun, items } = useSelector((state) => state.burgerConstructor);
-  const dispatch = useDispatch();
   const { image, name, price } = ingredient;
 
+  const location = useLocation();
   const [{ opacity }, dragRef] = useDrag({
     type: "ingredients",
     item: { ingredient },
@@ -28,9 +25,7 @@ const IngredientItem = ({ ingredient }) => {
   const counter = useMemo(
     () =>
       (count = 0) => {
-        for (let { _id } of items)
-
-        if (_id === ingredient._id) count++;
+        for (let { _id } of items) if (_id === ingredient._id) count++;
 
         if (bun && bun._id === ingredient._id) return 2;
 
@@ -39,33 +34,31 @@ const IngredientItem = ({ ingredient }) => {
     [bun, items, ingredient._id]
   );
 
-  const handleOpenIngredientModal = (ingredient) => {
-    dispatch(openIngredientModal(ingredient));
-  };
-
   return (
     <Link
       className={`${ingredientItemStyles.link}`}
-			to={{ pathname: `/ingredients/${ingredient._id}`, state: { background: location } }}
-      onClick={() => handleOpenIngredientModal(ingredient)}
+      to={{
+        pathname: `/ingredients/${ingredient._id}`,
+        state: { background: location },
+      }}
     >
-    <div
-      className={`${ingredientItemStyles.item} `}
-      style={{ opacity }}
-      ref={dragRef}
-    >
-      <img className={ingredientItemStyles.image} src={image} alt={name} />
-      <div className={`${ingredientItemStyles.price} pt-1 pb-1`}>
-        <p className="text text_type_digits-default pr-2">{price}</p>
-        <CurrencyIcon type="primary" />
-      </div>
-      <p
-        className={`${ingredientItemStyles.name} text text_type_main-default pb-10 pt-1`}
+      <div
+        className={`${ingredientItemStyles.item} `}
+        style={{ opacity }}
+        ref={dragRef}
       >
-        {name}
-      </p>
-      {counter() > 0 && <Counter count={counter()} size="default" />}
-    </div>
+        <img className={ingredientItemStyles.image} src={image} alt={name} />
+        <div className={`${ingredientItemStyles.price} pt-1 pb-1`}>
+          <p className="text text_type_digits-default pr-2">{price}</p>
+          <CurrencyIcon type="primary" />
+        </div>
+        <p
+          className={`${ingredientItemStyles.name} text text_type_main-default pb-10 pt-1`}
+        >
+          {name}
+        </p>
+        {counter() > 0 && <Counter count={counter()} size="default" />}
+      </div>
     </Link>
   );
 };
