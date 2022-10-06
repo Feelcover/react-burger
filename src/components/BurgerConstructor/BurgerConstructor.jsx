@@ -145,12 +145,8 @@ const BurgerConstructor = () => {
             disabled
           >
             {orderDetailsRequest ? (
-              <Modal
-                description="Ожидайте, заказ оформляется"
-                closeModal={handleCloseOrderModal}
-              >
                 <div className={burgerConstructorStyles.loader} />
-              </Modal>
+
             ) : (
               "Оформить заказ"
             )}

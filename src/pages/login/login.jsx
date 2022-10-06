@@ -50,6 +50,9 @@ export const Login = () => {
       <h2 className={`${loginStyle.title} pb-6 text_type_main-medium text`}>
         Вход
       </h2>
+      {requestLogin ? (
+                <div className={loginStyle.loader} />
+            ) : (
       <form className={loginStyle.form} onSubmit={onSubmit}>
         <div className="pb-5">
           <EmailInput
@@ -67,9 +70,13 @@ export const Login = () => {
             size="default"
           />
         </div>
-        <Button disabled={!password || !email} type="primary" size="medium">
-          Войти
+        
+              <Button disabled={!password || !email} type="primary" size="medium">
+        Войти
         </Button>
+
+            
+        
         {errorLogin ? (
         <p className={loginStyle.error}
         >Не правильный логин или пароль, повторите попытку</p>
@@ -77,6 +84,7 @@ export const Login = () => {
         null
       )}
       </form>
+      )}
       <p className="pt-20 pb-4 text_type_main-default text_color_inactive text">
         Вы — новый пользователь?
         <Link className={loginStyle.link} to="/register">
@@ -89,16 +97,6 @@ export const Login = () => {
           Восстановить пароль
         </Link>
       </p>
-      {requestLogin ? (
-        <Modal
-          description="Вход в учетную запись..."
-          closeModal={handleCloseOrderModal}
-        >
-          <div className={loginStyle.loader} />
-        </Modal>
-      ) : (
-        null
-      )}
     </div>
   );
 };
