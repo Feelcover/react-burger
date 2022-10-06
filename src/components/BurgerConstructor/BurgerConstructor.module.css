@@ -77,11 +77,11 @@
 }
 
 .loader{
-    margin: 60px auto;
-    width: 100px;
-    height: 100px;
+    margin: 0 55px;
+    width: 10px;
+    height: 10px;
     border-radius: 50%;
-    border: 8px dashed white;
+    border: 6px dashed white;
     animation: rotate 4s infinite linear;
 }
 

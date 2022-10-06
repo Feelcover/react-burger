@@ -39,11 +39,11 @@ padding-top: 30px;
 }
 
 .loader{
-    margin: 60px auto;
-    width: 100px;
-    height: 100px;
+    margin: 0 20px;
+    width: 150px;
+    height: 150px;
     border-radius: 50%;
-    border: 8px dashed white;
+    border: 10px dashed rgb(133, 133, 173);
     animation: rotate 4s infinite linear;
 }
 

@@ -2,7 +2,7 @@
   "name": "react-burger",
   "version": "0.1.0",
   "private": true,
-  "homepage": "/",
+  "homepage": "./",
   "dependencies": {
     "@reduxjs/toolkit": "^1.8.3",
     "@testing-library/jest-dom": "^5.16.4",
@@ -58,6 +58,7 @@
     "@types/react-router-dom": "^5.3.3",
     "gh-pages": "^4.0.0",
     "redux-devtools-extension": "^2.13.9",
-    "@types/uniqid": "^5.4.0"
+    "@types/uniqid": "^5.3.2"
+
   }
 }
