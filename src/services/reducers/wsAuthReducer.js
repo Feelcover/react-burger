@@ -10,6 +10,7 @@ const initialState = {
   orders: [],
   total: 0,
   totalToday: 0,
+  wsError: false
 };
 
 export const wsAuthReducer = (state = initialState, action) => {
@@ -18,17 +19,20 @@ export const wsAuthReducer = (state = initialState, action) => {
       return {
         ...state,
         wsConnected: true,
+        wsError: false
       };
     case WS_AUTH_CONNECTION_CLOSED:
       return {
         ...state,
         wsConnected: false,
+        wsError: false
       };
 
     case WS_AUTH_CONNECTION_ERROR:
       return {
         ...state,
         wsConnected: false,
+        wsError: true
       };
 
     case WS_AUTH_GET_ORDERS:

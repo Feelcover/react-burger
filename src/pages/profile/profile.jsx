@@ -27,7 +27,6 @@ import profileStyle from "./profile.module.css";
 export const Profile = () => {
   const { email, name } = useSelector((state) => state.authorization.user);
 
-
   const dispatch = useDispatch();
 
   const location = useLocation();

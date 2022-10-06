@@ -8,8 +8,11 @@ import { OrdersStatus } from "../../components/OrderStatus/OrderStatus";
 import { Orders } from "../../components/Orders/Orders";
 import feedStyles from "./feed.module.css";
 
+
 export const Feed = () => {
   const dispatch = useDispatch();
+
+
 
   useEffect(() => {
     dispatch(wsConnectionOpen());
@@ -17,6 +20,7 @@ export const Feed = () => {
       dispatch(wsConnectionClosed());
     };
   }, [dispatch]);
+
 
   return (
     <div className={feedStyles.container}>
