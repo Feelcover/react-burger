@@ -7,10 +7,10 @@ export const OrdersStatus = () => {
   const ItemId = uniqid();
   const doneStatusOrder = orders
     .filter((order) => order.status === "done")
-    .filter((order, index) => index < 15);
+    .filter((order, index) => index < 20);
   const pendingStatusOrder = orders
-    .filter((order) => order.status !== "done")
-    .filter((order, index) => index >= 10);
+    .filter((order) => order.status === "pending")
+    .filter((order, index) => index < 10);
 
   return (
     <div className={OrderStatusStyles.container}>

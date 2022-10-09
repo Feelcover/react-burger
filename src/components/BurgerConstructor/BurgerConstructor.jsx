@@ -13,21 +13,14 @@ import {
 import { getOrderDetails } from "../../services/actions/order";
 import {
   ADD_BUN,
-  ADD_INGREDIENT_CONSTRUCTOR,
-  RESET_INGREDIENT,
+  ADD_INGREDIENT_CONSTRUCTOR
 } from "../../services/actions/constructor";
-import Modal from "../Modal/Modal";
-import { closeOrderModal } from "../../services/actions/order";
 
 const BurgerConstructor = () => {
   const dispatch = useDispatch();
   const cookie = getCookie("token");
   const history = useHistory();
 
-  const handleCloseOrderModal = useCallback(() => {
-    dispatch(closeOrderModal());
-    dispatch({ type: RESET_INGREDIENT });
-  }, [dispatch]);
 
   const { bun, items, itemsId } = useSelector(
     (state) => state.burgerConstructor
