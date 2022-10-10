@@ -1,0 +1,22 @@
+.container {
+	max-width: 600px;
+	overflow-y: auto;
+	overflow-x: hidden;
+	height: 70vh;
+	min-height: 70%;
+	width: 100%;
+}
+
+.container::-webkit-scrollbar {
+	background-color: #2f2f37;
+	width: 8px;
+	height: auto;
+}
+.container::-webkit-scrollbar-thumb {
+	background-color: #8585ad;
+}
+
+.link {
+	text-decoration: none;
+	color: inherit;
+}

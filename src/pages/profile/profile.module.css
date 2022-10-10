@@ -1,7 +1,7 @@
 .container {
 	display: flex;
 	flex-direction: row;
-	max-width: 860px;
+	max-width: 1180px;
 	margin: auto;
 }
 
@@ -54,7 +54,9 @@
 }
 
 .form div {
+	max-width: 480px;
 	width: 100%;
+	
 }
 
 .form svg {

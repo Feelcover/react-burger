@@ -14,7 +14,13 @@ import { getBurgerIngredients } from "../../services/actions/ingredients";
 import { closeIngredientModal } from "../../services/actions/details";
 import { RESET_INGREDIENT } from "../../services/actions/constructor";
 
-import { Switch, Route, useLocation, useHistory } from "react-router-dom";
+import {
+  Switch,
+  Route,
+  useLocation,
+  useHistory,
+  useRouteMatch,
+} from "react-router-dom";
 import {
   ForgotPassword,
   Login,
@@ -22,7 +28,11 @@ import {
   Profile,
   Register,
   ResetPassword,
+  Feed,
 } from "../../pages";
+import { closeOrderInfoModal } from "../../services/actions/orderInfoModalClose";
+import { OrderInfo } from "../OrderInfo/OrderInfo";
+
 import { getUser, updateToken } from "../../services/actions/authorization";
 import { ProtectedRoute } from "../ProtectedRoute/ProtectedRoute";
 import { getCookie } from "../../utils/cookie";
@@ -37,10 +47,17 @@ function App() {
   const orderNumberModal = useSelector((state) => state.order.number);
 
   const dispatch = useDispatch();
+
+  const idOrderInfo = useRouteMatch(["/profile/orders/:id", "/feed/:id"])
+    ?.params?.id;
+
   const isLoading = useSelector((state) => state.burgerIngredients.isLoading);
   const hasError = useSelector((state) => state.burgerIngredients.hasError);
 
-
+  const handleCloseOrderInfoModal = useCallback(() => {
+    dispatch(closeOrderInfoModal());
+    history.goBack();
+  }, [dispatch]);
 
   const handleCloseOrderModal = useCallback(() => {
     dispatch(closeOrderModal());
@@ -54,8 +71,7 @@ function App() {
 
   useEffect(() => {
     dispatch(getBurgerIngredients());
-   }, [dispatch]);
-
+  }, [dispatch]);
 
   useEffect(() => {
     if (!cookie && token) {
@@ -65,8 +81,6 @@ function App() {
       dispatch(getUser());
     }
   }, [dispatch, token, cookie]);
-
-
 
   return (
     <div className={AppStyle.page}>
@@ -97,18 +111,29 @@ function App() {
           <Route path="/reset-password" exact>
             <ResetPassword />
           </Route>
-        
-          <Route path="/ingredients/:id" exact={true}>
+
+          <Route path="/ingredients/:id" exact>
             <IngredientDetails />
           </Route>
+
+          <Route path="/feed" exact>
+            <Feed />
+          </Route>
+          <Route path="/feed/:id" exact>
+            <OrderInfo />
+          </Route>
+
           <ProtectedRoute path="/profile">
             <Profile />
+          </ProtectedRoute>
+          <ProtectedRoute path="/profile/orders/:id">
+            <OrderInfo />
           </ProtectedRoute>
           <Route>
             <NotFound404 />
           </Route>
         </Switch>
-        
+
         {background && (
           <Route path="/ingredients/:id" exact>
             <Modal
@@ -116,6 +141,20 @@ function App() {
               closeModal={handleCloseIngredientModal}
             >
               <IngredientDetails />
+            </Modal>
+          </Route>
+        )}
+        {background && idOrderInfo && (
+          <ProtectedRoute path="/profile/orders/:id" exact>
+            <Modal description="" closeModal={handleCloseOrderInfoModal}>
+              <OrderInfo />
+            </Modal>
+          </ProtectedRoute>
+        )}
+        {background && idOrderInfo && (
+          <Route path="/feed/:id" exact>
+            <Modal description="" closeModal={handleCloseOrderInfoModal}>
+              <OrderInfo />
             </Modal>
           </Route>
         )}

@@ -75,3 +75,23 @@
 .listmain {
     height: calc(100vh - 450px);
 }
+
+.loader{
+    margin: 0 55px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border: 6px dashed white;
+    animation: rotate 4s infinite linear;
+}
+
+@keyframes rotate {
+
+    0% {
+      transform: rotate(0deg);
+    }
+  
+    100% {
+      transform: rotate(360deg);
+    }
+  }

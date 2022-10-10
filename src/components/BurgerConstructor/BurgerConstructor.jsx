@@ -1,8 +1,8 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useDrop } from "react-dnd";
-import { getCookie } from '../../utils/cookie';
-import { useHistory } from 'react-router-dom';
+import { getCookie } from "../../utils/cookie";
+import { useHistory } from "react-router-dom";
 import burgerConstructorStyles from "./BurgerConstructor.module.css";
 import BurgerConstructorItems from "../BurgerConstructorItems/BurgerConstructorItems";
 import {
@@ -13,31 +13,32 @@ import {
 import { getOrderDetails } from "../../services/actions/order";
 import {
   ADD_BUN,
-  ADD_INGREDIENT_CONSTRUCTOR,
+  ADD_INGREDIENT_CONSTRUCTOR
 } from "../../services/actions/constructor";
 
 const BurgerConstructor = () => {
   const dispatch = useDispatch();
-  const cookie = getCookie('token');
-	const history = useHistory();
+  const cookie = getCookie("token");
+  const history = useHistory();
 
-  const { bun, items } = useSelector((state) => state.burgerConstructor);
+
+  const { bun, items, itemsId } = useSelector(
+    (state) => state.burgerConstructor
+  );
+  const { orderDetailsRequest } = useSelector((state) => state.order);
 
   const filling = useMemo(
     () => items.filter((item) => item.type !== "bun"),
     [items]
   );
-  const itemsId = useMemo(() => items.map((item) => item._id), [items]);
-
-
 
   const orderDetailsModal = (itemsId) => {
-		cookie && dispatch(getOrderDetails(itemsId));
-		!cookie && history.push('/login');
-	};
+    cookie && dispatch(getOrderDetails(itemsId));
+    !cookie && history.push("/login");
+  };
 
   const [total, setTotal] = useState(0);
-  
+
   useEffect(() => {
     const totalPrice = filling.reduce(
       (sum, item) => sum + item.price,
@@ -45,7 +46,6 @@ const BurgerConstructor = () => {
     );
     setTotal(totalPrice);
   }, [bun, filling]);
-
 
   const [, dropTarget] = useDrop({
     accept: "ingredients",
@@ -75,6 +75,7 @@ const BurgerConstructor = () => {
           </p>
         ) : (
           <ConstructorElement
+            key={bun._id}
             type="top"
             isLocked={true}
             text={bun.name + "(верх)"}
@@ -113,6 +114,7 @@ const BurgerConstructor = () => {
           </p>
         ) : (
           <ConstructorElement
+            key={`bottom: ${bun._id}`}
             type="bottom"
             isLocked={true}
             text={bun.name + "(низ)"}
@@ -126,7 +128,7 @@ const BurgerConstructor = () => {
           <p className="text text_type_digits-medium pr-2">{total}</p>
           <CurrencyIcon type="primary" />
         </div>
-        {items.length === 0 ? (
+        {items.length === 0 || !!orderDetailsRequest ? (
           <Button
             type="primary"
             size="large"
@@ -135,7 +137,12 @@ const BurgerConstructor = () => {
             }}
             disabled
           >
-            Оформить заказ
+            {orderDetailsRequest ? (
+                <div className={burgerConstructorStyles.loader} />
+
+            ) : (
+              "Оформить заказ"
+            )}
           </Button>
         ) : (
           <Button

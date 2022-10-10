@@ -8,6 +8,8 @@
 }
 
 .link {
+	text-decoration: none;
+	color: #4C4CFF;
 	padding: 0 0 0 6px;
 	transition: all 0.4s ease-in-out;
 }
@@ -29,5 +31,31 @@
 .form div {
 	width: 100%;
 }
+
+.error{
+color: red;
+margin: 0;
+padding-top: 30px;
+}
+
+.loader{
+    margin: 0 20px;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border: 10px dashed rgb(133, 133, 173);
+    animation: rotate 4s infinite linear;
+}
+
+@keyframes rotate {
+
+    0% {
+      transform: rotate(0deg);
+    }
+  
+    100% {
+      transform: rotate(360deg);
+    }
+  }
 
 

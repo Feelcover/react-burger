@@ -7,8 +7,9 @@ import {
 } from "../actions/constructor";
 
 const initialState = {
+	itemsId: [],
   items: [],
-  bun: [],
+  bun: []
 };
 
 export const constructorReducer = (state = initialState, action) => {
@@ -25,12 +26,14 @@ export const constructorReducer = (state = initialState, action) => {
       return {
         ...state,
         bun: action.data,
+				itemsId: [...state.itemsId, action.data._id]
       };
     }
     case ADD_INGREDIENT_CONSTRUCTOR: {
       return {
         ...state,
         items: [...state.items, action.data],
+				itemsId: [...state.itemsId, action.data._id]
       };
     }
     case RESET_INGREDIENT: {

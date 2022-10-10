@@ -1,8 +1,8 @@
 import {
   CLOSE_ORDER_MODAL,
-  ORDER_DETAILS_FAILED,
-  ORDER_DETAILS_REQUEST,
   ORDER_DETAILS_SUCCESS,
+  ORDER_DETAILS_REQUEST,
+  ORDER_DETAILS_FAILED,
 } from "../actions/order";
 
 const orderInitialState = {
