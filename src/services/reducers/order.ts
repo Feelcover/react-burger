@@ -3,15 +3,25 @@ import {
   ORDER_DETAILS_SUCCESS,
   ORDER_DETAILS_REQUEST,
   ORDER_DETAILS_FAILED,
+  TOrderDetailsActions 
 } from "../actions/order";
 
-const orderInitialState = {
+type TOrderInitialState = {
+  orderDetailsRequest: boolean;
+  orderDetailsFailed: boolean;
+  number: number | null;
+};
+
+const orderInitialState: TOrderInitialState = {
   orderDetailsFailed: false,
   number: null,
   orderDetailsRequest: false,
 };
 
-export const orderReducer = (state = orderInitialState, action) => {
+export const orderReducer = (
+  state = orderInitialState,
+  action: TOrderDetailsActions
+): TOrderInitialState => {
   switch (action.type) {
     case ORDER_DETAILS_REQUEST: {
       return {
@@ -30,9 +40,9 @@ export const orderReducer = (state = orderInitialState, action) => {
     case ORDER_DETAILS_SUCCESS: {
       return {
         ...state,
-        number: action.number,
         orderDetailsRequest: false,
         orderDetailsFailed: false,
+        number: action.number,
       };
     }
     case CLOSE_ORDER_MODAL: {

@@ -25,15 +25,51 @@ import {
   RESET_PASSWORD_SUCCESS,
   UPDATE_TOKEN_FAILED,
   UPDATE_TOKEN_REQUEST,
-  UPDATE_TOKEN_SUCCESS
+  UPDATE_TOKEN_SUCCESS,
+  TAuthorizationActions
 } from "../actions/authorization";
+import { TUsers } from "../types";
 
+type TInitialState = {
+  message: string;
 
+  form: {
+    email: string;
+    password: string;
+    code: string;
+    name: string;
+  };
 
-const initialState = {
+  user: TUsers;
+
+  forgotPassRequest: boolean;
+  forgotPassFailed: boolean;
+  forgotPassSuccess: boolean;
+
+  resetPassRequest: boolean;
+  resetPassFailed: boolean;
+  resetPassSuccess: boolean;
+
+  loginRequest: boolean;
+  loginFailed: boolean;
+  loginSuccess: boolean;
+
+  logoutRequest: boolean;
+  logoutFailed: boolean;
+
+  getUserRequest: boolean;
+  getUserFailed: boolean;
+
+  updateUserRequest: boolean;
+  updateUserFailed: boolean;
+
+  updateTokenRequest: boolean;
+  updateTokenSuccess: boolean;
+  updateTokenFailed: boolean;
+};
+
+const initialState: TInitialState = {
   message: "",
-
-  
 
   form: {
     email: "",
@@ -46,7 +82,6 @@ const initialState = {
     email: "",
     name: "",
   },
-  
 
   forgotPassRequest: false,
   forgotPassFailed: false,
@@ -74,7 +109,10 @@ const initialState = {
   updateTokenFailed: false,
 };
 
-export const authorizationReducer = (state = initialState, action) => {
+export const authorizationReducer = (
+  state = initialState,
+  action: TAuthorizationActions
+): TInitialState => {
   switch (action.type) {
     case GET_USER_REQUEST: {
       return {
@@ -245,7 +283,7 @@ export const authorizationReducer = (state = initialState, action) => {
     case REGISTER_FORM_SUCCESS: {
       return {
         ...state,
-        user: action.form,
+        user: action.user,
         form: {
           ...state.form,
           email: "",

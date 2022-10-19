@@ -30,7 +30,7 @@ import {
   ResetPassword,
   Feed,
 } from "../../pages";
-import { closeOrderInfoModal } from "../../services/actions/orderInfoModalClose";
+import { closeOrderInfoModal } from "../../services/actions/orderInfo.ts";
 import { OrderInfo } from "../OrderInfo/OrderInfo";
 
 import { getUser, updateToken } from "../../services/actions/authorization";

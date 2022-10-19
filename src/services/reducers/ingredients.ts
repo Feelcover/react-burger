@@ -2,7 +2,16 @@ import {
   BURGER_INGREDIENTS_FAILED,
   BURGER_INGREDIENTS_REQUEST,
   BURGER_INGREDIENTS_SUCCESS,
+  TIngredientsActions
 } from "../actions/ingredients";
+import { TIngredients } from "../types";
+export type TIngredientsInitialState = {
+  ingredients: Array<TIngredients>;
+  ingredientsRequest: boolean;
+  ingredientsFailed: boolean;
+  isLoading: boolean;
+  hasError: boolean;
+};
 
 const ingredientsInitialState = {
   ingredients: [],
@@ -12,7 +21,10 @@ const ingredientsInitialState = {
   hasError: false,
 };
 
-export const ingredientsReducer = (state = ingredientsInitialState, action) => {
+export const ingredientsReducer = (
+  state = ingredientsInitialState,
+  action: TIngredientsActions
+): TIngredientsInitialState => {
   switch (action.type) {
     case BURGER_INGREDIENTS_REQUEST: {
       return {
