@@ -2,37 +2,50 @@ import {
   WS_AUTH_CONNECTION_SUCCESS,
   WS_AUTH_CONNECTION_ERROR,
   WS_AUTH_CONNECTION_CLOSED,
-  WS_AUTH_GET_ORDERS
+  WS_AUTH_GET_ORDERS,
+  TWsAuthActions,
 } from "../actions/wsAuthActions";
+import { TFeed } from "../types";
 
-const initialState = {
+type TInitialState = {
+  wsConnected: boolean;
+  orders: TFeed[];
+  total: number;
+  totalToday: number;
+  wsError: boolean;
+};
+
+const initialState: TInitialState = {
   wsConnected: false,
   orders: [],
   total: 0,
   totalToday: 0,
-  wsError: false
+  wsError: false,
 };
 
-export const wsAuthReducer = (state = initialState, action) => {
+export const wsAuthReducer = (
+  state = initialState,
+  action: TWsAuthActions
+): TInitialState => {
   switch (action.type) {
     case WS_AUTH_CONNECTION_SUCCESS:
       return {
         ...state,
         wsConnected: true,
-        wsError: false
+        wsError: false,
       };
     case WS_AUTH_CONNECTION_CLOSED:
       return {
         ...state,
         wsConnected: false,
-        wsError: false
+        wsError: false,
       };
 
     case WS_AUTH_CONNECTION_ERROR:
       return {
         ...state,
         wsConnected: false,
-        wsError: true
+        wsError: true,
       };
 
     case WS_AUTH_GET_ORDERS:

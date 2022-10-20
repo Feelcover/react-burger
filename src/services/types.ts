@@ -4,20 +4,22 @@ import { store } from "./store";
 import { ReactNode } from "react";
 import { rootReducer } from "./rootReducer";
 import { TConstructorActions } from "./actions/constructor";
-import { TAuthorizationActions } from "./actions/authorization"
-import { TIngredientsModalActions } from "./actions/details"
-import { TIngredientsActions } from "./actions/ingredients"
-import { TOrderInfoModalActions } from "./actions/orderInfo"
-import { TOrderDetailsActions } from "./actions/order"
+import { TAuthorizationActions } from "./actions/authorization";
+import { TIngredientsModalActions } from "./actions/details";
+import { TIngredientsActions } from "./actions/ingredients";
+import { TOrderInfoModalActions } from "./actions/orderInfo";
+import { TOrderDetailsActions } from "./actions/order";
+import { TWsActions } from "./actions/wsActions";
+import { TWsAuthActions } from "./actions/wsAuthActions"
 
 type TApplicationActions =
+  | TConstructorActions
+  | TOrderDetailsActions
+  | TIngredientsModalActions
   | TAuthorizationActions
   | TWsActions
   | TWsAuthActions
   | TIngredientsActions
-  | TConstructorActions
-  | TOrderDetailsActions
-  | TIngredientsModalActions
   | TOrderInfoModalActions;
 
 export type RootState = ReturnType<typeof rootReducer>;
@@ -134,4 +136,3 @@ export type TLocation = {
   from: string;
   state?: object;
 };
-
