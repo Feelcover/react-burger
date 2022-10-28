@@ -5,7 +5,8 @@ import {
   TIngredientsActions
 } from "../actions/ingredients";
 import { TIngredients } from "../types";
-export type TIngredientsInitialState = {
+
+type TIngredientsInitialState = {
   ingredients: Array<TIngredients>;
   ingredientsRequest: boolean;
   ingredientsFailed: boolean;

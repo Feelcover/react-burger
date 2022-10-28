@@ -7,7 +7,7 @@ import {
 } from "../actions/wsAuthActions";
 import { TFeed } from "../types";
 
-type TInitialState = {
+type TWsAuthInitialState = {
   wsConnected: boolean;
   orders: TFeed[];
   total: number;
@@ -15,7 +15,7 @@ type TInitialState = {
   wsError: boolean;
 };
 
-const initialState: TInitialState = {
+const initialState: TWsAuthInitialState = {
   wsConnected: false,
   orders: [],
   total: 0,
@@ -26,7 +26,7 @@ const initialState: TInitialState = {
 export const wsAuthReducer = (
   state = initialState,
   action: TWsAuthActions
-): TInitialState => {
+): TWsAuthInitialState => {
   switch (action.type) {
     case WS_AUTH_CONNECTION_SUCCESS:
       return {

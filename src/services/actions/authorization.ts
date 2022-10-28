@@ -282,7 +282,7 @@ export const registerUser: AppThunk = (
       .then((res) => {
         dispatch({
           type: REGISTER_FORM_SUCCESS,
-          user: res,
+          user: res.user,
         });
       })
       .catch(() => {

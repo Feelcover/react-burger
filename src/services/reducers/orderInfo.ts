@@ -3,7 +3,7 @@ import {
   TOrderInfoModalActions,
 } from "../actions/orderInfo";
 
-export type TOrderInfoInitialState = {
+type TOrderInfoInitialState = {
   openModal: string | null;
 };
 

@@ -1,7 +1,7 @@
 import { CLOSE_INGREDIENT_MODAL, TIngredientsModalActions } from "../actions/details";
 import { TIngredients } from "../types";
 
-export type TIngredientInitialState = {
+type TIngredientInitialState = {
   openModal: string | TIngredients | null;
 };
 

@@ -7,14 +7,14 @@ import {
 } from "../actions/wsActions";
 import { TFeed } from "../types";
 
-export type TInitialState = {
+type TWsInitialState = {
   wsConnected: boolean;
   total: number;
   totalToday: number;
   orders: TFeed[];
 };
 
-const initialState = {
+const initialState:TWsInitialState = {
   wsConnected: false,
   total: 0,
   totalToday: 0,
@@ -24,7 +24,7 @@ const initialState = {
 export const wsReducer = (
   state = initialState,
   action: TWsActions
-): TInitialState => {
+): TWsInitialState => {
   switch (action.type) {
     case WS_CONNECTION_SUCCESS:
       return {

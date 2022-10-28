@@ -3,7 +3,6 @@ import {
   EmailInput,
   PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, Redirect, useLocation } from "react-router-dom";
 import {
@@ -11,9 +10,7 @@ import {
   singIn,
 } from "../../services/actions/authorization";
 import { getCookie } from "../../utils/cookie";
-import { closeOrderModal } from "../../services/actions/order";
-import { RESET_INGREDIENT } from "../../services/actions/constructor";
-import Modal from "../../components/Modal/Modal";
+
 
 import loginStyle from "./login.module.css";
 
@@ -25,10 +22,7 @@ export const Login = () => {
 
   const dispatch = useDispatch();
 
-  const handleCloseOrderModal = useCallback(() => {
-    dispatch(closeOrderModal());
-    dispatch({ type: RESET_INGREDIENT });
-  }, [dispatch]);
+
   const cookie = getCookie("token");
   const location = useLocation();
 

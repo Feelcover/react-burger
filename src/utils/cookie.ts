@@ -1,4 +1,4 @@
-export function getCookie(name) {
+export function getCookie(name: string): undefined | string {
   const matches = document.cookie.match(
     new RegExp(
       "(?:^|; )" +
@@ -9,7 +9,11 @@ export function getCookie(name) {
   return matches ? decodeURIComponent(matches[1]) : undefined;
 }
 
-export function setCookie(name, value, props) {
+export function setCookie(
+  name: string,
+  value: string | number | boolean,
+  props: { [key: string]: any } & { expires?: string | number | Date } = {}
+) {
   props = props || {};
   let exp = props.expires;
   if (typeof exp == "number" && exp) {
@@ -17,8 +21,8 @@ export function setCookie(name, value, props) {
     d.setTime(d.getTime() + exp * 20000);
     exp = props.expires = d;
   }
-  if (exp && exp.toUTCString) {
-    props.expires = exp.toUTCString();
+  if (exp && (exp as Date).toUTCString) {
+    props.expires = (exp as Date).toUTCString();
   }
   value = encodeURIComponent(value);
   let updatedCookie = name + "=" + value;
@@ -32,11 +36,11 @@ export function setCookie(name, value, props) {
   document.cookie = updatedCookie;
 }
 
-export function deleteCookie(name) {
-  setCookie(name, null, { expires: -1 });
+export function deleteCookie(name:string) {
+  setCookie(name, '', { expires: -1 });
 }
 
-export const formatDate = (date) => {
+export const formatDate = (date:string) => {
   const formatter = new Intl.DateTimeFormat("ru", {
     hour: "numeric",
     minute: "numeric",
@@ -47,7 +51,7 @@ export const formatDate = (date) => {
 
   const today = new Date();
 
-  function diffSubtract(dayOne, dayTwo) {
+  function diffSubtract(dayOne:any, dayTwo:any):number {
     return Math.ceil((dayOne - dayTwo) / 86400000);
   }
 
@@ -60,7 +64,7 @@ export const formatDate = (date) => {
     timeZone: "Europe/Moscow",
   });
 
-  const formatDay = (dateOfOrder, dayQty) => {
+  const formatDay = (dateOfOrder: Date, dayQty: number): undefined | string => {
     if (formatterForFay.format(today) === formatterForFay.format(dateOfOrder)) {
       return "Cегодня";
     }

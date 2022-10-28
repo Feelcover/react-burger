@@ -10,7 +10,12 @@ import { TIngredientsActions } from "./actions/ingredients";
 import { TOrderInfoModalActions } from "./actions/orderInfo";
 import { TOrderDetailsActions } from "./actions/order";
 import { TWsActions } from "./actions/wsActions";
-import { TWsAuthActions } from "./actions/wsAuthActions"
+import { TWsAuthActions } from "./actions/wsAuthActions";
+import {
+  TypedUseSelectorHook,
+  useDispatch as dispatchHook,
+  useSelector as selectorHook,
+} from "react-redux";
 
 type TApplicationActions =
   | TConstructorActions
@@ -22,34 +27,43 @@ type TApplicationActions =
   | TIngredientsActions
   | TOrderInfoModalActions;
 
+// export type TAllResponse =
+// | TIngredientsResponse
+// | TUserResponse
+// | TUserLogoutResponse
+// | TOrderDetailsResponse
+// | TFeedResponse;
+
 export type RootState = ReturnType<typeof rootReducer>;
 export type AppDispatch = typeof store.dispatch;
 export type AppThunk<ReturnType = void> = ActionCreator<
   ThunkAction<ReturnType, Action, RootState, TApplicationActions>
 >;
-
-export type TOrderDetailsResponse = {
-  success: boolean;
-  name: string;
-  order: TOrders;
-};
-
-export type TIngredientsResponse = {
-  data: Array<TIngredients>;
-  success: boolean;
-};
+export const useSelector: TypedUseSelectorHook<RootState> = selectorHook;
+export const useDispatch = () => dispatchHook<AppDispatch & AppThunk>();
 
 export type TUserResponse = {
+  success: boolean;
   user: TUsers;
   accessToken: string;
   refreshToken: string;
   message: string;
-  success: boolean;
 };
 
 export type TUserLogoutResponse = {
-  refreshToken: string;
   message: string;
+  success: boolean;
+  refreshToken: string;
+};
+
+export type TOrderDetailsResponse = {
+  name: string;
+  order: TOrders;
+  success: boolean;
+};
+
+export type TIngredientsResponse = {
+  data: Array<TIngredients>;
   success: boolean;
 };
 
@@ -60,7 +74,7 @@ export type TFeedResponse = {
   orders: Array<TFeed>;
 };
 
-export type TWsSocketMiddlewareAction = {
+export type TWsMiddlewareActions = {
   wsInit: string;
   wsSendMessage: string;
   onOpen: string;
@@ -87,8 +101,8 @@ export type TIngredients = {
 };
 
 export type TUsers = {
-  email: string;
-  name: string;
+  email?: string;
+  name?: string;
   createdAt?: string;
   updatedAt?: string;
 };
@@ -136,3 +150,21 @@ export type TLocation = {
   from: string;
   state?: object;
 };
+
+export type TRequest = {
+  method: string;
+  headers: THeaders;
+  body?: string | null;
+  mode?: any;
+  cache?: any;
+  credentials?: any;
+  redirect?: any;
+  referrerPolicy?: any;
+};
+
+export type THeaders = {
+  "Content-Type": string;
+  Authorization?: string;
+};
+
+

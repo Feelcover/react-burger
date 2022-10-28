@@ -67,7 +67,7 @@ const BurgerConstructor = () => {
   return (
     <section className={`${burgerConstructorStyles.section} pt-25 ml-10`}>
       <div className={`${burgerConstructorStyles.container}`} ref={dropTarget}>
-        {bun.length === 0 ? (
+        {bun.name.length === 0 ? (
           <p
             className={`${burgerConstructorStyles.instructionbun} text text_type_main-large pr-2 text_color_inactive`}
           >
@@ -106,7 +106,7 @@ const BurgerConstructor = () => {
             })}
           </ul>
         )}
-        {bun.length === 0 ? (
+        {bun.name.length === 0 ? (
           <p
             className={`${burgerConstructorStyles.instructionbun} text text_type_main-large pr-2 text_color_inactive`}
           >
