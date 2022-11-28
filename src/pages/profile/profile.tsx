@@ -1,9 +1,9 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, FC, FormEvent, ChangeEvent} from "react";
 import {
   Button,
   Input,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "../../services/types";
 import {
   Route,
   Switch,
@@ -23,16 +23,22 @@ import {
   wsAuthConnectionOpen,
 } from "../../services/actions/wsAuthActions";
 import profileStyle from "./profile.module.css";
+import { TLocation } from "../../services/types";
 
-export const Profile = () => {
+export const Profile: FC = () => {
   const { email, name } = useSelector((state) => state.authorization.user);
 
   const dispatch = useDispatch();
 
-  const location = useLocation();
+  const location = useLocation<TLocation>();
 
   const matchOrderDetails = !!useRouteMatch({ path: "/profile/orders/:id" });
   const background = location.state?.background;
+  const [form, setForm] = useState({
+    email: "",
+    name: "",
+    password: "",
+  });
 
   useEffect(() => {
     dispatch(getUser());
@@ -50,30 +56,26 @@ export const Profile = () => {
     });
   }, [email, name]);
 
-  const [form, setForm] = useState({
-    email: "",
-    name: "",
-    password: "",
-  });
+
 
   function onSingOut() {
     dispatch(singOut());
   }
 
-  function submit(evt) {
+  function submit(evt: FormEvent<HTMLFormElement>) {
     evt.preventDefault();
     dispatch(updateUser(form.email, form.name, form.password));
   }
 
-  function onChange(evt) {
+  function onChange(evt: ChangeEvent<HTMLInputElement>) {
     setForm({ ...form, [evt.target.name]: evt.target.value });
   }
 
-  function reset(evt) {
+  function reset(evt: ChangeEvent<HTMLInputElement>) {
     evt.preventDefault();
     setForm({
-      email: email,
-      name: name,
+      email: "",
+      name: "",
       password: "",
     });
   }
@@ -172,8 +174,8 @@ export const Profile = () => {
             </div>
             <div className={profileStyle.buttons}>
               <Button
-                disabled={form.email && form.name}
-              type="primary" size="medium" onClick={reset}>
+                disabled={!!form.email && !!form.name}
+              type="primary" size="medium" onClick={() => reset}>
                 Oтмена
               </Button>
               <Button

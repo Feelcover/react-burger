@@ -98,11 +98,12 @@ export type TIngredients = {
   name: string;
   price: number;
   proteins: number;
+  length:number;
 };
 
 export type TUsers = {
-  email?: string;
-  name?: string;
+  email: string;
+  name: string;
   createdAt?: string;
   updatedAt?: string;
 };
@@ -130,13 +131,13 @@ export type TFeed = {
 };
 
 export type TModal = {
-  title: string;
+  description: string;
   children: ReactNode;
-  onClickClose: () => void;
+  closeModal: () => void;
 };
 
 export type TModalOverlay = {
-  onClickClose: () => void;
+  closeModal: () => void;
 };
 
 export type TLocation = {
@@ -151,6 +152,17 @@ export type TLocation = {
   state?: object;
 };
 
+export type TBurgerConstructorItems = {
+	index: number;
+	items: TIngredients;
+}
+
+export type TDragItems = {
+	index: number;
+	type: string;
+	id?: string;
+};
+
 export type TRequest = {
   method: string;
   headers: THeaders;
@@ -162,9 +174,42 @@ export type TRequest = {
   referrerPolicy?: any;
 };
 
+
 export type THeaders = {
   "Content-Type": string;
   Authorization?: string;
 };
 
+export type TIngredientsItems = {
+	ingredient: TIngredients;
+}
 
+
+export type TIngredientsCategories = {
+	ingredients: TIngredients[];
+	type: string;
+  tabRef: (node?: Element | null | undefined) => void;
+}
+
+export type TCategories = {
+	[key: string]: string;
+}
+
+export type TDetailsItemData = {
+  text: string;
+  value: number;
+}
+
+export type TOrderAttachedImage = {
+  image?: string;
+  alt: string;
+}
+
+export type TOrdersCards = {
+	order: TFeed;
+	status: string;
+}
+
+export type TOrderInfoDetails = {
+	details: TIngredients[];
+}

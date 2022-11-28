@@ -4,7 +4,8 @@ import {
   Input,
   PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useSelector, useDispatch } from "react-redux";
+import {FC, ChangeEvent, FormEvent } from 'react';
+import { useSelector, useDispatch } from "../../services/types";
 import { Link, Redirect, useLocation } from "react-router-dom";
 import {
   registerUser,
@@ -12,23 +13,24 @@ import {
 } from "../../services/actions/authorization";
 import { getCookie } from "../../utils/cookie";
 import registrationStyle from "./registration.module.css";
+import { TLocation } from "../../services/types";
 
-export const Register = () => {
+export const Register: FC = () => {
   const dispatch = useDispatch();
 
   const { email, password, name } = useSelector(
     (state) => state.authorization.form
   );
-  const location = useLocation();
+  const location = useLocation<TLocation>();
 
   const cookie = getCookie("token");
 
-  function formSubmit(evt) {
+  function formSubmit(evt: FormEvent<HTMLFormElement>) {
     evt.preventDefault();
     dispatch(registerUser(email, password, name));
   }
 
-  function onChange(evt) {
+  function onChange(evt: ChangeEvent<HTMLInputElement>) {
     dispatch(setRegisterFormValue(evt.target.name, evt.target.value));
   }
 

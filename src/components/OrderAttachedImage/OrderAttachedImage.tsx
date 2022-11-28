@@ -1,7 +1,9 @@
+import { FC } from 'react';
 import OrderAttachedImageStyles from "./OrderAttachedImage.module.css";
-import propTypes from "prop-types";
+import { TOrderAttachedImage } from '../../services/types';
 
-export const OrderAttachedImage = ({ image, alt }) => {
+const OrderAttachedImage: FC<TOrderAttachedImage> = ({ image, alt }) => {
+  
   return (
     <div className={OrderAttachedImageStyles.border}>
       <div className={OrderAttachedImageStyles.item}>
@@ -11,7 +13,4 @@ export const OrderAttachedImage = ({ image, alt }) => {
   );
 };
 
-OrderAttachedImage.propTypes = {
-  image: propTypes.string.isRequired,
-  alt: propTypes.string.isRequired,
-};
+export default OrderAttachedImage

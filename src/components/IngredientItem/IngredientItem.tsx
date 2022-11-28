@@ -1,19 +1,19 @@
-import { useMemo } from "react";
-import { useSelector } from "react-redux";
+import { useMemo, FC } from "react";
+import { useSelector } from "../../services/types";
 import { useDrag } from "react-dnd";
 import ingredientItemStyles from "./IngredientItem.module.css";
 import {
   Counter,
   CurrencyIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import ingredientType from "../../utils/types";
 import { Link, useLocation } from "react-router-dom";
+import { TIngredientsItems, TLocation } from "../../services/types";
 
-const IngredientItem = ({ ingredient }) => {
+const IngredientItem: FC<TIngredientsItems> = ({ ingredient }) => {
   const { bun, items } = useSelector((state) => state.burgerConstructor);
   const { image, name, price } = ingredient;
 
-  const location = useLocation();
+  const location = useLocation<TLocation>();
   const [{ opacity }, dragRef] = useDrag({
     type: "ingredients",
     item: { ingredient },
@@ -63,8 +63,5 @@ const IngredientItem = ({ ingredient }) => {
   );
 };
 
-IngredientItem.protoType = {
-  ingredient: ingredientType.isRequired,
-};
 
 export default IngredientItem;

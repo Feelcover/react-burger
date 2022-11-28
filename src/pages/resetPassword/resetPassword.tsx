@@ -3,7 +3,8 @@ import {
   Input,
   PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useSelector, useDispatch } from "react-redux";
+import { FC, ChangeEvent, FormEvent } from 'react';
+import { useSelector, useDispatch } from "../../services/types";
 import { Link, Redirect, useLocation } from "react-router-dom";
 import {
   resetPassword,
@@ -11,10 +12,11 @@ import {
 } from "../../services/actions/authorization";
 import { getCookie } from "../../utils/cookie";
 import resetPasswordStyles from "./resetPassword.module.css";
+import { TLocation } from "../../services/types";
 
-export const ResetPassword = () => {
+export const ResetPassword: FC = () => {
   const dispatch = useDispatch();
-  const location = useLocation();
+  const location = useLocation<TLocation>();
 
   const cookie = getCookie("token");
   const { password, code } = useSelector((state) => state.authorization.form);
@@ -23,13 +25,13 @@ export const ResetPassword = () => {
     (state) => state.authorization
   );
 
-  function onChange(evt) {
-    dispatch(setResetFormValue(evt.target.name, evt.target.value));
-  }
-
-  function formSubmit(evt) {
+  function formSubmit(evt: FormEvent<HTMLFormElement>) {
     evt.preventDefault();
     dispatch(resetPassword({ password, token: code }));
+  }
+
+  function onChange(evt: ChangeEvent<HTMLInputElement>) {
+    dispatch(setResetFormValue(evt.target.name, evt.target.value));
   }
 
 
@@ -48,7 +50,6 @@ export const ResetPassword = () => {
         <div className="pb-6">
           <PasswordInput
             onChange={onChange}
-            placeholder={"Введите новый пароль"}
             value={password}
             name={"password"}
             size="default"

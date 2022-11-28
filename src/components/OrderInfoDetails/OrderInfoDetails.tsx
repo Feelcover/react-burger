@@ -1,17 +1,20 @@
-import { useMemo } from "react";
-import { useSelector } from "react-redux";
-import { OrderAttachedImage } from "../OrderAttachedImage/OrderAttachedImage";
+import { useMemo, FC } from "react";
+import { useSelector } from "../../services/types";
+import OrderAttachedImage from "../OrderAttachedImage/OrderAttachedImage";
 import uniqid from "uniqid";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import propTypes from "prop-types";
 import OrderInfoDetailsStyles from "./OrderInfoDetails.module.css";
+import { TOrderInfoDetails } from "../../services/types";
 
-export const OrderInfoDetails = ({ details }) => {
+export const OrderInfoDetails: FC<TOrderInfoDetails> = ({ details }) => {
   const ingredients = useSelector(
     (store) => store.burgerIngredients.ingredients
   );
 
-  const count = (elem) => {
+  const count = (elem:object) => {
+    console.log(typeof elem);
+    
     let count = details.filter((item) => {
       return item === elem;
     }).length;

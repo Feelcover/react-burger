@@ -1,8 +1,7 @@
-import { useRef } from "react";
-import { useDispatch } from "react-redux";
+import { useRef, FC } from "react";
+import { useDispatch } from "../../services/types";
 import { useDrag, useDrop } from "react-dnd";
 import burgerConstructorStyles from "./BurgerConstructorItems.module.css";
-import ingredientType from "../../utils/types";
 import {
   DELETE_INGREDIENT,
   MOVE_INGREDIENT,
@@ -11,13 +10,14 @@ import {
   ConstructorElement,
   DragIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
+import { TBurgerConstructorItems, TDragItems } from "../../services/types"
 
-const BurgerConstructorItems = ({ index, items }) => {
+const BurgerConstructorItems: FC<TBurgerConstructorItems> = ({ index, items }) => {
   const dispatch = useDispatch();
   const { image, id, price, name } = items;
   const ref = useRef(null);
 
-  const onDelete = (id) => {
+  const onDelete = (id?: string) => {
     dispatch({
       type: DELETE_INGREDIENT,
       id: id,
@@ -34,7 +34,7 @@ const BurgerConstructorItems = ({ index, items }) => {
     },
   });
 
-  const [, drop] = useDrop({
+  const [, drop] = useDrop<TDragItems>({
     accept: "item",
     hover(items) {
       if (!ref.current) {
@@ -69,9 +69,5 @@ const BurgerConstructorItems = ({ index, items }) => {
   );
 };
 
-BurgerConstructorItems.protoType = {
-  items: ingredientType.isRequired,
-  index: ingredientType.isRequired,
-};
 
 export default BurgerConstructorItems;

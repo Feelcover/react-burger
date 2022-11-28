@@ -1,8 +1,9 @@
-import { useSelector } from "react-redux";
+import { FC } from 'react';
+import { useSelector } from "../../services/types";
 import uniqid from "uniqid";
 import OrderStatusStyles from "./OrdersStatus.module.css";
 
-export const OrdersStatus = () => {
+export const OrdersStatus: FC = () => {
   const { total, totalToday, orders } = useSelector((store) => store.wsFeed);
   const ItemId = uniqid();
   const doneStatusOrder = orders

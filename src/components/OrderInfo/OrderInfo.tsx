@@ -1,5 +1,5 @@
-import { useEffect, useMemo } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useEffect, useMemo, FC } from "react";
+import { useSelector, useDispatch } from "../../services/types";
 import { useParams, useRouteMatch } from "react-router-dom";
 import { OrderInfoDetails } from "../OrderInfoDetails/OrderInfoDetails";
 import {
@@ -14,8 +14,9 @@ import { formatDate } from "../../utils/cookie";
 import uniqid from "uniqid";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import OrderInfoStyles from "./OrderInfo.module.css";
+import { TIngredients } from "../../services/types";
 
-export const OrderInfo = () => {
+export const OrderInfo: FC = () => {
   const allOrders = useSelector((store) => store.wsFeed.orders);
   const authorizationOrders = useSelector((store) => store.wsAuthFeed.orders);
   const ingredients = useSelector(
@@ -23,7 +24,7 @@ export const OrderInfo = () => {
   );
   const dispatch = useDispatch();
 
-  let { id } = useParams();
+  let { id } = useParams<{id: string}>();
   let match = useRouteMatch();
   const isProfile = "/profile/orders/:id";
   const isFeed = "/feed/:id";
@@ -96,7 +97,7 @@ export const OrderInfo = () => {
             Состав:
           </h3>
           <ul className={`${OrderInfoStyles.list}`}>
-            <OrderInfoDetails details={orderIngredientsData} key={id} />
+            <OrderInfoDetails details={orderIngredientsData as TIngredients[]} key={id} />
           </ul>
           <div className={`${OrderInfoStyles.total} pb-10`}>
             <p className="text text_type_main-default text_color_inactive">

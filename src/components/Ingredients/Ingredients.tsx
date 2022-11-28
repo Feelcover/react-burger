@@ -1,9 +1,11 @@
+import { FC } from 'react';
 import ingredientsStyles from "./Ingredients.module.css";
 import IngredientItem from "../IngredientItem/IngredientItem";
 import PropTypes from "prop-types";
+import { TIngredientsCategories, TCategories } from "../../services/types";
 
-const Ingredients = ({ tabRef, ingredients, type }) => {
-  const categories = {
+const Ingredients: FC<TIngredientsCategories> = ({ tabRef, ingredients, type }) => {
+  const categories: TCategories = {
     bun: "Булки",
     sauce: "Соусы",
     main: "Начинки",

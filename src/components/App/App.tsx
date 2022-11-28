@@ -1,4 +1,4 @@
-import { useEffect, useCallback } from "react";
+import { useEffect, useCallback, FC } from "react";
 import AppHeader from "../AppHeader/AppHeader";
 import BurgerConstructor from "../BurgerConstructor/BurgerConstructor";
 import BurgerIngredients from "../BurgerIngredients/BurgerIngredients";
@@ -6,14 +6,13 @@ import Modal from "../Modal/Modal";
 import OrderDetails from "../OrderDetails/OrderDetails";
 import IngredientDetails from "../IngredientDetails/IngredientDetails";
 import AppStyle from "./App.module.css";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "../../services/types";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { DndProvider } from "react-dnd";
 import { closeOrderModal } from "../../services/actions/order";
 import { getBurgerIngredients } from "../../services/actions/ingredients";
 import { closeIngredientModal } from "../../services/actions/details";
 import { RESET_INGREDIENT } from "../../services/actions/constructor";
-
 import {
   Switch,
   Route,
@@ -30,15 +29,17 @@ import {
   ResetPassword,
   Feed,
 } from "../../pages";
-import { closeOrderInfoModal } from "../../services/actions/orderInfo.ts";
+import { closeOrderInfoModal } from "../../services/actions/orderInfo";
 import { OrderInfo } from "../OrderInfo/OrderInfo";
 
 import { getUser, updateToken } from "../../services/actions/authorization";
 import { ProtectedRoute } from "../ProtectedRoute/ProtectedRoute";
 import { getCookie } from "../../utils/cookie";
+import { TLocation } from "../../services/types";
 
-function App() {
-  const location = useLocation();
+
+const App: FC = () => {
+  const location = useLocation<TLocation>();
   const history = useHistory();
   const background = location.state?.background;
   const token = localStorage.getItem("refreshToken");
@@ -48,7 +49,7 @@ function App() {
 
   const dispatch = useDispatch();
 
-  const idOrderInfo = useRouteMatch(["/profile/orders/:id", "/feed/:id"])
+  const idOrderInfo = useRouteMatch<{[id: string] : string} | null>(["/profile/orders/:id", "/feed/:id"])
     ?.params?.id;
 
   const isLoading = useSelector((state) => state.burgerIngredients.isLoading);

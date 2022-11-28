@@ -1,10 +1,11 @@
+import { FC } from 'react';
 import ingredientDetailsStyles from "./IngredientDetails.module.css";
 import IngredientsDetailsItem from "../IngredientsDetailsItem/IngredientsDetailsItem";
 import { useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector } from "../../services/types";
 
-const IngredientDetails = () => {
-  const { id } = useParams();
+const IngredientDetails: FC = () => {
+  const { id } = useParams<{ id: string }>();
   const ingredients = useSelector(
     (state) => state.burgerIngredients.ingredients
   );

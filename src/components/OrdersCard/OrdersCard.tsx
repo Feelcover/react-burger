@@ -1,12 +1,12 @@
-import { useMemo } from "react";
-import { useSelector } from "react-redux";
-import { OrderAttachedImage } from "../OrderAttachedImage/OrderAttachedImage";
+import { useMemo, FC } from "react";
+import { useSelector } from "../../services/types";
+import OrderAttachedImage from "../OrderAttachedImage/OrderAttachedImage";
 import { formatDate } from "../../utils/cookie";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import propTypes from "prop-types";
 import OrdersCardStyles from "./OrdersCard.module.css";
+import { TOrdersCards } from "../../services/types";
 
-export const OrdersCard = ({ order, status }) => {
+export const OrdersCard: FC<TOrdersCards> = ({ order, status }) => {
   const ingredients = useSelector(
     (store) => store.burgerIngredients.ingredients
   );
@@ -112,9 +112,4 @@ export const OrdersCard = ({ order, status }) => {
       </div>
     </div>
   );
-};
-
-OrdersCard.propTypes = {
-  order: propTypes.object.isRequired,
-  status: propTypes.bool,
 };

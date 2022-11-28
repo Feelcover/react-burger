@@ -1,12 +1,14 @@
+import { FC } from 'react';
 import { OrdersCard } from "../OrdersCard/OrdersCard";
-import { useSelector } from "react-redux";
+import { useSelector } from "../../services/types";
 import { Link, useLocation } from "react-router-dom";
 import OrdersStyles from "./Orders.module.css";
+import { TLocation } from '../../services/types';
 
-export const Orders = () => {
+export const Orders: FC = () => {
   const orders = useSelector((store) => store.wsFeed.orders);
 
-  const location = useLocation();
+  const location = useLocation<TLocation>();
 
   return (
     <div className={OrdersStyles.container}>
@@ -21,7 +23,7 @@ export const Orders = () => {
               className={`${OrdersStyles.link}`}
               key={order._id}
             >
-              <OrdersCard order={order} status={false} key={index} />
+              <OrdersCard order={order} status={order.status} key={index} />
             </Link>
           );
         })}

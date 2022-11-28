@@ -1,8 +1,8 @@
-import PropTypes from "prop-types";
-
+import { FC } from 'react';
 import ingredientsDetailsItemStyles from "./IngredientsDetailsItem.module.css";
+import { TDetailsItemData } from '../../services/types';
 
-const IngredientsDetailsItem = (data) => {
+const IngredientsDetailsItem: FC<TDetailsItemData> = (data) => {
   return (
     <li className={`${ingredientsDetailsItemStyles.item}`}>
       <p
@@ -17,11 +17,6 @@ const IngredientsDetailsItem = (data) => {
       </p>
     </li>
   );
-};
-
-IngredientsDetailsItem.propTypes = {
-  text: PropTypes.string.isRequired,
-  value: PropTypes.number.isRequired,
 };
 
 export default IngredientsDetailsItem;

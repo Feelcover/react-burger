@@ -1,8 +1,9 @@
+import { FC } from 'react';
 import acceptedImg from "../../images/AcceptedIcon.svg";
 import orderDetailsStyles from "./OrderDetails.module.css";
-import { useSelector } from 'react-redux';
+import { useSelector } from '../../services/types';
 
-const OrderDetails = () => {
+const OrderDetails: FC = () => {
 
   const  orderNumber  = useSelector(store => store.order.number);
 

@@ -3,18 +3,18 @@ import {
   EmailInput,
   PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useSelector, useDispatch } from "react-redux";
+import {ChangeEvent, FC, FormEvent } from "react"
+import { useSelector, useDispatch } from "../../services/types";
 import { Link, Redirect, useLocation } from "react-router-dom";
 import {
   setLoginFormValue,
   singIn,
 } from "../../services/actions/authorization";
 import { getCookie } from "../../utils/cookie";
-
-
+import { TLocation } from "../../services/types";
 import loginStyle from "./login.module.css";
 
-export const Login = () => {
+export const Login: FC = () => {
   const { email, password } = useSelector((state) => state.authorization.form);
 
   const requestLogin = useSelector((state) => state.authorization.loginRequest);
@@ -24,14 +24,14 @@ export const Login = () => {
 
 
   const cookie = getCookie("token");
-  const location = useLocation();
+  const location = useLocation<TLocation>();
 
-  function onSubmit(evt) {
+  function onSubmit(evt: FormEvent<HTMLFormElement>) {
     evt.preventDefault();
     dispatch(singIn(email, password));
   }
 
-  function onChange(evt) {
+  function onChange(evt: ChangeEvent<HTMLInputElement>) {
     dispatch(setLoginFormValue(evt.target.name, evt.target.value));
   }
 

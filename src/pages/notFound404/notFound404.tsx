@@ -1,9 +1,10 @@
 import { Link } from "react-router-dom";
 import styleNotFound from "./notFound404.module.css";
 import errorImg from "../..//images/404.jpg";
+import { FC } from 'react';
 
 
-export const NotFound404 = () => {
+export const NotFound404: FC = () => {
   return (
     <div className={`${styleNotFound.container} pb-20`}>
       <img

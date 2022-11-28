@@ -32,6 +32,7 @@ const initialState: TInitialState = {
     image: "",
     image_large: "",
     image_mobile: "",
+    length:0,
   },
 };
 

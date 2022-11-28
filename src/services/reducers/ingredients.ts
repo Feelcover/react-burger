@@ -14,7 +14,7 @@ type TIngredientsInitialState = {
   hasError: boolean;
 };
 
-const ingredientsInitialState = {
+const ingredientsInitialState: TIngredientsInitialState = {
   ingredients: [],
   ingredientsRequest: false,
   ingredientsFailed: false,

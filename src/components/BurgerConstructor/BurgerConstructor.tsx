@@ -1,5 +1,5 @@
-import { useEffect, useMemo, useState, useCallback } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useMemo, useState, FC } from "react";
+import { useDispatch, useSelector } from "../../services/types";
 import { useDrop } from "react-dnd";
 import { getCookie } from "../../utils/cookie";
 import { useHistory } from "react-router-dom";
@@ -15,8 +15,13 @@ import {
   ADD_BUN,
   ADD_INGREDIENT_CONSTRUCTOR
 } from "../../services/actions/constructor";
+import { TIngredients } from "../../services/types"
 
-const BurgerConstructor = () => {
+interface DropItem {
+	ingredient: TIngredients;
+}
+
+const BurgerConstructor: FC = () => {
   const dispatch = useDispatch();
   const cookie = getCookie("token");
   const history = useHistory();
@@ -32,7 +37,7 @@ const BurgerConstructor = () => {
     [items]
   );
 
-  const orderDetailsModal = (itemsId) => {
+  const orderDetailsModal = (itemsId: string[]) => {
     cookie && dispatch(getOrderDetails(itemsId));
     !cookie && history.push("/login");
   };
@@ -49,7 +54,7 @@ const BurgerConstructor = () => {
 
   const [, dropTarget] = useDrop({
     accept: "ingredients",
-    drop(item) {
+    drop(item:DropItem) {
       if (item.ingredient.type === "bun") {
         dispatch({
           type: ADD_BUN,

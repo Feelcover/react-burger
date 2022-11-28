@@ -1,8 +1,16 @@
+import { FC, ReactNode } from "react";
 import { Redirect, Route, useLocation } from "react-router-dom";
 import { getCookie } from "../../utils/cookie";
+import { TLocation } from "../../services/types"
 
-export function ProtectedRoute({ children, ...rest }) {
-  const location = useLocation();
+interface Prop {
+  children: ReactNode;
+  exact?: boolean;
+  path: string;
+}
+
+export const ProtectedRoute: FC<Prop> = ({ children, ...rest }) => {
+  const location = useLocation<TLocation>();
   const cookie = getCookie("token");
 
   return (
@@ -22,4 +30,4 @@ export function ProtectedRoute({ children, ...rest }) {
       }
     />
   );
-}
+};
