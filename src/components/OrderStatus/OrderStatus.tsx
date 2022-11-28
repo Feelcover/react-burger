@@ -1,11 +1,9 @@
 import { FC } from 'react';
 import { useSelector } from "../../services/types";
-import uniqid from "uniqid";
 import OrderStatusStyles from "./OrdersStatus.module.css";
 
 export const OrdersStatus: FC = () => {
   const { total, totalToday, orders } = useSelector((store) => store.wsFeed);
-  const ItemId = uniqid();
   const doneStatusOrder = orders
     .filter((order) => order.status === "done")
     .filter((order, index) => index < 20);
@@ -23,7 +21,7 @@ export const OrdersStatus: FC = () => {
               return (
                 <li
                   className={`${OrderStatusStyles.item} ${OrderStatusStyles.done} text text_type_digits-default`}
-                  key={ItemId + index}
+                  key={index}
                 >
                   {order.number}
                 </li>
@@ -38,7 +36,7 @@ export const OrdersStatus: FC = () => {
               return (
                 <li
                   className={`${OrderStatusStyles.item} text text_type_digits-default`}
-                  key={ItemId + index}
+                  key={index}
                 >
                   {order.number}
                 </li>

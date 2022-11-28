@@ -11,7 +11,6 @@ import {
   wsAuthConnectionOpen,
 } from "../../services/actions/wsAuthActions";
 import { formatDate } from "../../utils/cookie";
-import uniqid from "uniqid";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import OrderInfoStyles from "./OrderInfo.module.css";
 import { TIngredients } from "../../services/types";
@@ -107,7 +106,7 @@ export const OrderInfo: FC = () => {
               <p className="text text_type_digits-default pr-2">
                 {orderTotalPrice}
               </p>
-              <CurrencyIcon type="primary" key={uniqid()} />
+              <CurrencyIcon type="primary"/>
             </div>
           </div>
         </div>

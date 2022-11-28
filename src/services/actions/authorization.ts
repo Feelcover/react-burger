@@ -81,7 +81,7 @@ export type TAuthorizationActions =
   | ISetResetFormValue
   | ISetLoginFormValue
   | ISetRegisterFormValue;
-
+  
 interface IResetPasswordRequest {
   readonly type: typeof RESET_PASSWORD_REQUEST;
 }
@@ -176,6 +176,7 @@ interface ISingInRequest {
   readonly type: typeof LOGIN_FORM_REQUEST;
 }
 
+
 export const singIn: AppThunk = (email: string, password: string) => {
   return function (dispatch: AppDispatch) {
     dispatch({
@@ -183,6 +184,7 @@ export const singIn: AppThunk = (email: string, password: string) => {
     });
     loginRequest(email, password)
       .then((res) => {
+        
         const accessToken = res.accessToken.split("Bearer ")[1];
         const refreshToken = res.refreshToken;
         setCookie("token", accessToken);

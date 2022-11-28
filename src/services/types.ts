@@ -27,45 +27,15 @@ type TApplicationActions =
   | TIngredientsActions
   | TOrderInfoModalActions;
 
-// export type TAllResponse =
-// | TIngredientsResponse
-// | TUserResponse
-// | TUserLogoutResponse
-// | TOrderDetailsResponse
-// | TFeedResponse;
 
 export type RootState = ReturnType<typeof rootReducer>;
 export type AppDispatch = typeof store.dispatch;
-export type AppThunk<ReturnType = void> = ActionCreator<
+export type AppThunk<ReturnType = Promise<any> | void> = ActionCreator<
   ThunkAction<ReturnType, Action, RootState, TApplicationActions>
 >;
 export const useSelector: TypedUseSelectorHook<RootState> = selectorHook;
 export const useDispatch = () => dispatchHook<AppDispatch & AppThunk>();
 
-export type TUserResponse = {
-  success: boolean;
-  user: TUsers;
-  accessToken: string;
-  refreshToken: string;
-  message: string;
-};
-
-export type TUserLogoutResponse = {
-  message: string;
-  success: boolean;
-  refreshToken: string;
-};
-
-export type TOrderDetailsResponse = {
-  name: string;
-  order: TOrders;
-  success: boolean;
-};
-
-export type TIngredientsResponse = {
-  data: Array<TIngredients>;
-  success: boolean;
-};
 
 export type TFeedResponse = {
   success: boolean;

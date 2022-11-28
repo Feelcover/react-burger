@@ -9,7 +9,7 @@ const modalWindow = document.querySelector("#modal") as HTMLElement;
 
 const Modal: FC<TModal> = ({ description, closeModal, children }) => {
   useEffect(() => {
-    function handleEscKeydown(evt: {key: string}) {
+    function handleEscKeydown(evt: KeyboardEvent) {
       if (evt.key === "Escape") {
         closeModal();
       }

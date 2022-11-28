@@ -1,5 +1,5 @@
 import { useEffect, FC } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch } from "../../services/types";
 import {
   wsConnectionClosed,
   wsConnectionOpen,

@@ -1,8 +1,4 @@
 import { getCookie, setCookie } from "./cookie";
-import { TIngredientsResponse,
-  TOrderDetailsResponse, TUserResponse, TUserLogoutResponse} from "../services/types";
-
-
 
 
 
@@ -13,7 +9,7 @@ export const Api = {
   },
 };
 
-export const processResponse = <T>(res:Response): Promise<T>  => {
+export const processResponse = (res:Response) => {
   if (res.ok) {
     return res.json();
   } else {
@@ -21,23 +17,21 @@ export const processResponse = <T>(res:Response): Promise<T>  => {
   }
 };
 
-// function request(url: string, options: RequestInit) {
-//   return fetch(url, options).then(res => processResponse<TAllResponse>(res));
-// } Должна быть вместо fetch, но пока не понимаю как типизировать 
-
+function request(url: string, options: RequestInit) {
+  return fetch(url, options).then(res => processResponse(res));
+}
 export const getIngredientsData = async () => {
-  return await fetch(`${Api.url}/ingredients`, {
+  return await request(`${Api.url}/ingredients`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
     },
   })
-  .then(res => processResponse<TIngredientsResponse>(res));
 
 };
 
 export const getOrderDetailsData = async (productsId: string[]) => {
-  return await fetch(`${Api.url}/orders`, {
+  return await request(`${Api.url}/orders`, {
     method: "POST",
     body: JSON.stringify({
       ingredients: productsId,
@@ -47,12 +41,10 @@ export const getOrderDetailsData = async (productsId: string[]) => {
       Authorization: "Bearer " + getCookie("token"),
     },
   })
-  .then(res => processResponse<TOrderDetailsResponse>(res));
-
 };
 
 export const forgotPassRequest = async (email:string) => {
-  return await fetch(`${Api.url}/password-reset`, {
+  return await request(`${Api.url}/password-reset`, {
     method: "POST",
     body: JSON.stringify(email),
     mode: "cors",
@@ -64,24 +56,20 @@ export const forgotPassRequest = async (email:string) => {
     redirect: "follow",
     referrerPolicy: "no-referrer",
   })
-  .then(res => processResponse<TUserResponse>(res));
-
 };
 
 export const resetPassRequest = async (password:string, token: any) => {
-  return await fetch(`${Api.url}/password-reset/reset`, {
+  return await request(`${Api.url}/password-reset/reset`, {
     method: "POST",
     body: JSON.stringify(password, token),
     headers: {
       "Content-Type": "application/json",
     },
   })
-  .then(res => processResponse<TUserResponse>(res));
-
 };
 
 export const loginRequest = async (email:string, password:string) => {
-  return await fetch(`${Api.url}/auth/login`, {
+  return await request(`${Api.url}/auth/login`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -91,12 +79,10 @@ export const loginRequest = async (email:string, password:string) => {
       password: password,
     }),
   })
-  .then(res => processResponse<TUserResponse>(res));
-
 };
 
 export const registerUserRequest = async (email:string, password:string, name:string) => {
-  return await fetch(`${Api.url}/auth/register`, {
+  return await request(`${Api.url}/auth/register`, {
     method: "POST",
     body: JSON.stringify({
       email: email,
@@ -107,12 +93,10 @@ export const registerUserRequest = async (email:string, password:string, name:st
       "Content-Type": "application/json",
     },
   })
-  .then(res => processResponse<TUserResponse>(res));
-
 };
 
 export const logoutRequest = async () => {
-  return await fetch(`${Api.url}/auth/logout`, {
+  return await request(`${Api.url}/auth/logout`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -121,8 +105,6 @@ export const logoutRequest = async () => {
       token: localStorage.getItem("refreshToken"),
     }),
   })
-  .then(res => processResponse<TUserLogoutResponse>(res));
-
 };
 
 export const getUserRequest = async () => {
@@ -151,7 +133,7 @@ export const updateUserRequest = async (email:string, name:string, password:stri
 };
 
 export const updateTokenRequest = async () => {
-  return await fetch(`${Api.url}/auth/token`, {
+  return await request(`${Api.url}/auth/token`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -160,14 +142,13 @@ export const updateTokenRequest = async () => {
       token: localStorage.getItem("refreshToken"),
     }),
   })
-  .then(res => processResponse<TUserResponse>(res));
 
 };
 
 export const fetchRefresh = async (url:string, options:RequestInit) => {
   try {
     const res = await fetch(url, options);
-    return await processResponse<TUserResponse>(res);
+    return await processResponse(res);
   } catch (err:any) {
     if (err.message === "jwt expired") {
       const refreshToken = await updateTokenRequest();
@@ -179,7 +160,7 @@ export const fetchRefresh = async (url:string, options:RequestInit) => {
       setCookie("token", accessToken);
       (options.headers as { [key: string]: string }).Authorization = refreshToken.accessToken;
       const res = await fetch(url, options);
-      return await processResponse<TUserResponse>(res);
+      return await processResponse(res);
     } else {
       return Promise.reject(err);
     }

@@ -1,7 +1,6 @@
 import { useMemo, FC } from "react";
 import { useSelector } from "../../services/types";
 import OrderAttachedImage from "../OrderAttachedImage/OrderAttachedImage";
-import uniqid from "uniqid";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import propTypes from "prop-types";
 import OrderInfoDetailsStyles from "./OrderInfoDetails.module.css";
@@ -11,9 +10,9 @@ export const OrderInfoDetails: FC<TOrderInfoDetails> = ({ details }) => {
   const ingredients = useSelector(
     (store) => store.burgerIngredients.ingredients
   );
+  
 
   const count = (elem:object) => {
-    console.log(typeof elem);
     
     let count = details.filter((item) => {
       return item === elem;
@@ -36,7 +35,7 @@ export const OrderInfoDetails: FC<TOrderInfoDetails> = ({ details }) => {
           return (
             <li
               className={`${OrderInfoDetailsStyles.item} pb-3`}
-              key={uniqid()}
+              key={item?._id}
             >
               {item && (
                 <>
@@ -44,7 +43,7 @@ export const OrderInfoDetails: FC<TOrderInfoDetails> = ({ details }) => {
                     <OrderAttachedImage
                       image={item.image}
                       alt={item.name}
-                      key={uniqid()}
+                      key={item.name}
                     />
                     <p
                       className={`${OrderInfoDetailsStyles.text} text text_type_main-default pl-4`}
@@ -59,7 +58,7 @@ export const OrderInfoDetails: FC<TOrderInfoDetails> = ({ details }) => {
                         ? `${count(item) * 2} x ${item.price}`
                         : `${count(item)} x ${item.price}`}
                     </p>
-                    <CurrencyIcon type="primary" key={uniqid()} />
+                    <CurrencyIcon type="primary"/>
                   </div>
                 </>
               )}
