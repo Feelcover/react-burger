@@ -22,12 +22,13 @@ import {
   WS_AUTH_CONNECTION_START,
 } from "./actions/wsAuthActions";
 import { socketMiddleware } from "./middleware/socketMiddleware";
+import { TWsMiddlewareActions } from "./types";
 
 const wsUrl = "wss://norma.nomoreparties.space/orders/all";
 const wsAuthUrl = "wss://norma.nomoreparties.space/orders";
  
 
-const wsActions = {
+const wsActions:TWsMiddlewareActions = {
   wsInit: WS_CONNECTION_START,
   wsSendMessage: WS_SEND_ORDERS,
   onOpen: WS_CONNECTION_SUCCESS,
@@ -36,7 +37,7 @@ const wsActions = {
   onMessage: WS_GET_ORDERS,
 };
 
-const wsAuthActions = {
+const wsAuthActions:TWsMiddlewareActions = {
   wsInit: WS_AUTH_CONNECTION_START,
   wsSendMessage: WS_AUTH_SEND_ORDERS,
   onOpen: WS_AUTH_CONNECTION_SUCCESS,
@@ -56,3 +57,9 @@ const enhancer = composeEnhancers(
   )
 );
 export const store = createStore(rootReducer, enhancer);
+
+declare module 'react' {
+  interface FunctionComponent<P = {}> {
+    (props: PropsWithChildren<P>, context?: any): ReactElement<any, any> | null;
+  }
+}
