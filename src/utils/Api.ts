@@ -30,7 +30,7 @@ export const getIngredientsData = async () => {
 
 };
 
-export const getOrderDetailsData = async (productsId: string[]) => {
+export const getOrderDetailsData = async (productsId: Array<string>) => {
   return await request(`${Api.url}/orders`, {
     method: "POST",
     body: JSON.stringify({
@@ -58,10 +58,10 @@ export const forgotPassRequest = async (email:string) => {
   })
 };
 
-export const resetPassRequest = async (password:string, token: any) => {
+export const resetPassRequest = async (password:string, token: string) => {
   return await request(`${Api.url}/password-reset/reset`, {
     method: "POST",
-    body: JSON.stringify(password, token),
+    body: JSON.stringify({password, token}),
     headers: {
       "Content-Type": "application/json",
     },
