@@ -5,7 +5,7 @@
     -ms-text-size-adjust: 100%;
     -moz-text-size-adjust: 100%;
     text-rendering: optimizeLegibility;
-    margin: auto;
+    margin: 0 auto;
     padding: 0;
     background-color: #131316;
 }
@@ -14,6 +14,7 @@
     display: flex;
     justify-content: center;
     margin: auto;
+    max-height: 1080px;
 }
 
 .loader{
